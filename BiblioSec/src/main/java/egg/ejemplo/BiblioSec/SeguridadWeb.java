@@ -34,21 +34,22 @@ public class SeguridadWeb {
     @Bean
     public SecurityFilterChain filtroCadena(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(autoriza -> autoriza
-                .requestMatchers("/admin/*")
-                .hasRole("ADMIN")
-                .requestMatchers("/css/*", "/js/*", "/img/*", "/**").permitAll())
-                .formLogin(autoriza -> autoriza.loginPage("/login")
-                .loginProcessingUrl("/logincheck")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/inicio")
-                .permitAll()
-                ).logout(autoriza -> autoriza
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
-                .permitAll())
-                .csrf(csrfCustomizer -> csrfCustomizer.disable())
-                .build();
+                                                    .requestMatchers("/admin/*")
+                                                    .hasRole("ADMIN")
+                                                    .requestMatchers("/css/*", "/js/*", "/img/*", "/**").permitAll())
+                                .formLogin(autoriza -> autoriza.loginPage("/login")
+                                                    .loginProcessingUrl("/logincheck")
+                                                    .usernameParameter("email")
+                                                    .passwordParameter("password")
+                                                    .defaultSuccessUrl("/inicio")
+                                                    .permitAll())
+                                .logout(autoriza -> autoriza
+                                                    .logoutUrl("/logout")
+                                                    .logoutSuccessUrl("/login")
+                                                    .permitAll())
+                                .csrf(csrfCustomizer -> csrfCustomizer
+                                                    .disable())
+                                .build();
 
     }
 }
