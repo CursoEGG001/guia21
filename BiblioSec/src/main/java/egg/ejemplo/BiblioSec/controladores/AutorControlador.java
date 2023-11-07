@@ -61,17 +61,18 @@ public class AutorControlador {
         return "autor_list";
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/modificar/{id}")
     public String modificar(@PathVariable String id, ModelMap modelo) {
         modelo.put("autor", autorServicio.getOne(id));
 
         return "autor_modificar.html";
     }
 
-    @PatchMapping("{id}")
+    @PostMapping("/modificar/{id}")
     public String modificar(@PathVariable String id, String nombre, ModelMap modelo) {
         try {
             autorServicio.modificarAutor(nombre, id);
+            modelo.put("exito", "Actualizado con éxito");
 
             return "redirect:../lista";
         } catch (MiException ex) {
@@ -81,10 +82,10 @@ public class AutorControlador {
 
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/elimina/{id}")
     public String eliminar(@PathVariable String id, ModelMap modelo) throws MiException {
         autorServicio.eliminar(id);
-
-        return "autor_modificar.html";
+        modelo.put("error", "Se ha eliminado el autor");
+        return "redirect:../lista";
     }
 }

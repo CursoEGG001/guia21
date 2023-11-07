@@ -44,6 +44,10 @@ public class ErrorControlador implements ErrorController {
                 errorMsg = "El recurso solicitado no fue encontrado(Archivo no encontrado en servidor).";
                 break;
             }
+            case 405: {
+                errorMsg = "La acción no está contemplada";
+                break;
+            }
             case 500: {
                 errorMsg = "Ocurrió un error interno (El desarrollador está con una papa en la cabeza).";
                 break;
@@ -51,9 +55,11 @@ public class ErrorControlador implements ErrorController {
         }
 
         errorPage.addObject("codigo", httpErrorCode);
-        errorPage.addObject("mensaje", errorMsg);
-        return errorPage;
-    }
+            errorPage.addObject("mensaje", errorMsg);
+            return errorPage;
+        }
+
+    
 
     private int getErrorCode(HttpServletRequest httpRequest) {
         return (Integer) httpRequest.getAttribute("jakarta.servlet.error.status_code");

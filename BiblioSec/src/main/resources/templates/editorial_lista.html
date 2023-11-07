@@ -101,13 +101,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
             <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
                 <div class="card-body">
-                    <h5 class="card-title">Exito ð</h5>
+                    <h5 class="card-title">Exito 👍</h5>
                     <p class="card-text" th:text="${exito}"></p>
                 </div>
             </div>
             <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError" >
                 <div class="card-body">
-                    <h5 class="card-title">Error ð</h5>
+                    <h5 class="card-title">Error 👎</h5>
                     <p class="card-text" th:text="${error}"></p>
                 </div>
             </div>
@@ -115,7 +115,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <section class="py-5 text-center container">
                 <div class="row py-lg-5">
                     <div class="col-lg-6 col-md-8 mx-auto">
-                        <a th:href="@{/}" class="btn btn-primary my-2">Volver</a>
+                        <a th:href="@{/inicio}" class="btn btn-primary my-2">Volver</a>
 
                     </div>
                 </div>
