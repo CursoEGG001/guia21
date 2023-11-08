@@ -4,14 +4,12 @@
  */
 package live.egg.noticia.eggnews.entidades;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import java.io.Serializable;
-import java.util.Date;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -19,28 +17,44 @@ import org.hibernate.annotations.GenericGenerator;
  * @author pc
  */
 @Entity
-public class Noticias implements Serializable {
+public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    private String titulo;
-    @Column(length=12000)
-    private String cuerpo;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fecha;
-    private Periodista creador;
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+    private String nombre;
+    private String password;
+    private String email;
+    @Enumerated(EnumType.STRING)
+    private Rol rol;
     private Boolean activo;
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
 
     public Boolean getActivo() {
         return activo;
@@ -50,32 +64,12 @@ public class Noticias implements Serializable {
         this.activo = activo;
     }
 
-    public Noticias() {
-        this.activo = true;
+    public String getNombre() {
+        return nombre;
     }
 
-    public Noticias(String id, String titulo, String cuerpo, Date fecha, Boolean activo) {
-        this.id = id;
-        this.titulo = titulo;
-        this.cuerpo = cuerpo;
-        this.fecha = fecha;
-        this.activo = activo;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getCuerpo() {
-        return cuerpo;
-    }
-
-    public void setCuerpo(String cuerpo) {
-        this.cuerpo = cuerpo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getId() {
@@ -96,10 +90,10 @@ public class Noticias implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Noticias)) {
+        if (!(object instanceof Usuario)) {
             return false;
         }
-        Noticias other = (Noticias) object;
+        Usuario other = (Usuario) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -108,7 +102,7 @@ public class Noticias implements Serializable {
 
     @Override
     public String toString() {
-        return "live.egg.noticia.eggnews.entidades.Noticias[ id=" + id + " ]";
+        return "live.egg.noticia.eggnews.entidades.Usuario[ id=" + id + " ]";
     }
 
 }
