@@ -12,7 +12,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
     </head>
     <body>
         <header class="display-1 text-center">Control para agregar noticias</header>
-        <div class="bg-secondary bg-gradient">
+        <div class="container bg-secondary bg-gradient">
             <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
                 <div class="card-body p-4">
                     <h5 class="card-title">Error 👎</h5>
@@ -25,7 +25,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <p class="card-text" th:text="${exito}"></p>
                 </div>
             </div>
-            <form class="formulario container container-lg" sec:authorize="hasAnyRole('PERIODISTA','ADMIN')" th:action="@{/noticia/crear}" method="POST">
+            <form class="formulario container container-lg p-4" sec:authorize="hasAnyRole('PERIODISTA','ADMIN')" th:action="@{/noticia/crear}" method="POST">
 
                 <div class="form-group my-3 g-2">
                     <input type="text" class="form-control text-white bg-secondary bg-gradient" name="titulo" placeholder="Titulo" />
@@ -42,19 +42,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
             <form class="formulario" sec:authorize="hasRole('ADMIN')" th:action="@{/panelAdmin}" method="POST">
 
                 <div class="form-group my-3">
-                    <h3 class="card-title">¡Registrar Usuario!</h3>
+                    <p>Usuario Activo: <span sec:authentication="name"></span> como <span sec:authentication="principal.authorities"></span></p><br/>
+                    <h3 class="fs-4">¡Registrar Usuario!</h3>
+
                 </div>
-                <div class="form-group my-3">
+                <div class="input-group input-group-sm my-3">
                     <input type="text" class="form-control" name="nombre" placeholder="NOMBRE" th:value="${nombre}" />
                 </div>
-                <div class="form-group my-3">
+                <div class="input-group input-group-sm my-3">
                     <input type="email" class="form-control" name="email" placeholder="EMAIL" th:value="${email}" />
                 </div>
 
-                <div class="form-group my-3">
+                <div class="input-group input-group-sm my-3">
                     <input type="password" class="form-control" name="password" placeholder="CONTRASEÑA" th:value="${password}" />
                 </div>
-                <div class="form-group my-3">
+                <div class="input-group input-group-sm my-3">
                     <input type="password" class="form-control" name="password2" placeholder="REPETIR CONTRASEÑA" th:value="${password2}" />
                 </div>
 
