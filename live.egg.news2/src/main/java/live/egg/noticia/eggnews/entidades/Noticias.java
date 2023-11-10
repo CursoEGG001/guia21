@@ -8,6 +8,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.io.Serializable;
@@ -27,11 +28,20 @@ public class Noticias implements Serializable {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private String titulo;
-    @Column(length=12000)
+    @Column(length = 12000)
     private String cuerpo;
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
+    @ManyToOne
     private Periodista creador;
+
+    public Periodista getCreador() {
+        return creador;
+    }
+
+    public void setCreador(Periodista creador) {
+        this.creador = creador;
+    }
 
     public Date getFecha() {
         return fecha;
@@ -54,11 +64,12 @@ public class Noticias implements Serializable {
         this.activo = true;
     }
 
-    public Noticias(String id, String titulo, String cuerpo, Date fecha, Boolean activo) {
+    public Noticias(String id, String titulo, String cuerpo, Date fecha, Periodista creador, Boolean activo) {
         this.id = id;
         this.titulo = titulo;
         this.cuerpo = cuerpo;
         this.fecha = fecha;
+        this.creador = creador;
         this.activo = activo;
     }
 

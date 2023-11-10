@@ -9,8 +9,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import live.egg.noticia.eggnews.entidades.Noticias;
+import live.egg.noticia.eggnews.entidades.Periodista;
 import live.egg.noticia.eggnews.excepciones.MiException;
 import live.egg.noticia.eggnews.repositorios.NoticiasRepository;
+import live.egg.noticia.eggnews.repositorios.PeriodistaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,8 @@ public class NoticiasServicio {
 
     @Autowired
     NoticiasRepository noticiasRepository;
+    @Autowired
+    PeriodistaRepositorio periodistaRepository;
 
     @Transactional
     public void crearNoticia(String titulo, String cuerpo, Date fecha) throws MiException {
@@ -40,6 +44,23 @@ public class NoticiasServicio {
     }
 
     @Transactional
+    public void crearNoticia(String titulo, String cuerpo, Date fecha, String IdCreador) throws MiException {
+        validaDatos(titulo, cuerpo);
+
+        Noticias noticia = new Noticias();
+        Periodista creador = periodistaRepository.getReferenceById(IdCreador);
+
+        noticia.setTitulo(titulo);
+        noticia.setCuerpo(cuerpo);
+        noticia.setFecha(fecha);
+        noticia.setCreador(creador);
+
+        noticia.setActivo(Boolean.TRUE);
+
+        noticiasRepository.save(noticia);
+    }
+
+    @Transactional
     public List<Noticias> listarNoticias() throws MiException {
 
         List<Noticias> noticias = new ArrayList<>(noticiasRepository.findAll());
@@ -48,7 +69,7 @@ public class NoticiasServicio {
     }
 
     @Transactional
-    public void modificarNoticia(String Id, String titulo, String cuerpo,Date fecha) throws MiException {
+    public void modificarNoticia(String Id, String titulo, String cuerpo, Date fecha) throws MiException {
         validaDatos(titulo, cuerpo);
 
         Optional<Noticias> respuesta = noticiasRepository.findById(Id);
@@ -76,7 +97,7 @@ public class NoticiasServicio {
             noticiasRepository.save(noticia);
         }
     }
-    
+
     public Noticias getOne(String id) {
         return noticiasRepository.getReferenceById(id);
     }

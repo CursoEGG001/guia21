@@ -34,8 +34,8 @@ public class SeguridadWeb {
     @Bean
     public SecurityFilterChain secCadena(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(authorizeHttpRequestsCustomizer -> authorizeHttpRequestsCustomizer
-                .requestMatchers("/admin/*")
-                .hasAnyRole("ADMIN")
+                .requestMatchers("/panelAdmin/*")
+                .hasAnyRole("ADMIN","PERIODISTA")
                 .requestMatchers("/css/*", "/js/*", "/img/*", "/**")
                 .permitAll()
         ).formLogin(formLoginCustomizer -> formLoginCustomizer

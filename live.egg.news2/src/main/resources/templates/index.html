@@ -15,6 +15,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
             <div class="text-center bg-secondary bg-gradient">EGG News</div><br />
             <div class="container">
 
+                <div th:if="${usuario != null}">
+                    <div class="card-body p-4">
+                        <p>¡Bienvenido, <b th:text="${usuario.nombre}"></b>!</p>
+                        <p class="card-text">Usted está con sesión iniciada</p>
+                    </div>
+                </div>
+                <div th:unless="${usuario != null}" class="btn btn-primary align-center">
+
+                    <input type="submit" onclick="window.location.href='/login'" value="Ingresar"/>
+
+                </div>
+
                 <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
                     <div class="card-body p-4">
                         <h5 class="card-title">Error 👎</h5>
