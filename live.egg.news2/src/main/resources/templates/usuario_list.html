@@ -65,7 +65,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <section class="py-5 text-center container">
                 <div class="row py-lg-5">
                     <div class="col-lg-6 col-md-8 mx-auto">
-                        <a th:href="@{/admin/dashboard }" class="btn btn-primary my-2">Volver</a>
+                        <a th:href="@{/panelAdmin}" class="btn btn-primary my-2">Volver</a>
                     </div>
                 </div>
             </section>
@@ -73,11 +73,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         </div>
 
         <footer class="text-muted py-5">
-            <div class="containerFooter">
-                <p class="mb-1">Album example is &copy; Bootstrap,<br>but please download and customize it for yourself!</p>
-                <p class="mb-0">New to Bootstrap? <a href="/"><br>Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
+            <div class="container">
+                <p class="mb-1">EGGNews,<br/>¡Nuestras Noticias!</p>
+                <p class="mb-0">¿ir al inicio? <a href="/"><br/>EGGNews</a></p>
                 <p class="float-end mb-1">
-                    <a href="#" style="text-decoration:none"><span>⬆️</span> Back to top</a>
+                    <a href="#" style="text-decoration:none"><span>⬆️</span> Back to top</a><br/>
+                    <a th:href="@{/registrar}" class="col-auto btn btn-secondary my-2">Registrarse</a>
                 </p>
             </div>
         </footer>

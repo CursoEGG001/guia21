@@ -18,15 +18,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
             </div>
         </header>
 
-        <div th:if="${usuario != null}" class="row position-relative">
-            <div class="col-4 text-end p-4">
-                <p>¡Bienvenido, <b th:text="${usuario.nombre}"></b>!</p>
-                <p class="card-text">Usted está con sesión iniciada</p>
-            </div>
-            <div class="col-auto btn btn-primary align-bottom">
-
-                <input type="submit" onclick="window.location.href = '/logout'" value="Cerrar Sesión"/>
-
+        <div class="container">
+            <div th:if="${usuario != null}" class="row justify-content-evenly position-relative">
+                <div class="col-4 text-end p-4">
+                    <p>¡Bienvenido, <b th:text="${usuario.nombre}"></b>!</p>
+                    <p class="card-text">Usted está con sesión iniciada</p>
+                </div>
+                <div class="col-auto btn btn-primary position-absolute bottom-0 end-0">
+                    <input type="submit" onclick="window.location.href = '/logout'" value="Cerrar Sesión"/>
+                </div>
             </div>
         </div>
 
@@ -52,6 +52,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
         <footer>
             <div class="container bg-dark bg-gradient text-secondary">
                 Contenido de Egg News
+            </div>
+            <div th:if='${usuario.rol == "PERIODISTA"}' class="col-auto btn btn-primary position-absolute bottom-0 end-0">
+                <input type="submit" onclick="window.location.href = '/panelAdmin'" value="Crear noticia"/>
             </div>
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
