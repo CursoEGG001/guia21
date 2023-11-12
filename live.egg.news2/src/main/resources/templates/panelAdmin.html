@@ -35,6 +35,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <textarea class="form-control text-white bg-secondary bg-gradient" name="cuerpo" placeholder="Cuerpo de la noticia"></textarea>
                 </div>
 
+                <div class="form-group my-3">
+                    <select name="creador">  
+                        <option>Seleccionar Periodista</option>
+                        <option th:each="periodista : ${periodistas}"
+                                th:value="${periodista.id}" 
+                                th:text="${periodista.nombre}"
+                                />
+                    </select>
+                </div>
+
                 <button type="submit" class="btn btn-primary mt-3 botones">Guardar</button>
             </form>
 

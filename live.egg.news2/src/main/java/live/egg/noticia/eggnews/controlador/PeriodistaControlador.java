@@ -6,9 +6,15 @@ package live.egg.noticia.eggnews.controlador;
 
 import jakarta.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+import live.egg.noticia.eggnews.entidades.Periodista;
+import live.egg.noticia.eggnews.entidades.Rol;
 import live.egg.noticia.eggnews.entidades.Usuario;
 import live.egg.noticia.eggnews.excepciones.MiException;
+import live.egg.noticia.eggnews.repositorios.PeriodistaRepositorio;
 import live.egg.noticia.eggnews.servicios.NoticiasServicio;
+import live.egg.noticia.eggnews.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,10 +35,19 @@ public class PeriodistaControlador {
     @Autowired
     private NoticiasServicio noticiasServicio;
 
+    @Autowired
+    private UsuarioServicio usuarioServicio;
+    @Autowired
+    private PeriodistaRepositorio periodistaRepositorio;
 
     @GetMapping("/panelAdmin")
     public String panelAdmin(ModelMap modelo, HttpSession session) {
 
+        List<Usuario> periodistas = usuarioServicio.listarUsuarios()
+                .stream().filter(usuario -> usuario.getRol()
+                .equals(Rol.PERIODISTA))
+                .collect(Collectors.toList());
+        modelo.addAttribute("periodistas", periodistas);
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.put("usuario", usuario);
         return ("/panelAdmin.html");
@@ -50,6 +65,7 @@ public class PeriodistaControlador {
                 noticiasServicio.crearNoticia(titulo, cuerpo, fecha);
             } else {
                 noticiasServicio.crearNoticia(titulo, cuerpo, fecha, creador);
+                periodistaRepositorio.save((Periodista) usuarioServicio.getOne(creador));
             }
 
             modelo.put("exito", "La noticia fue cargada correctamente!");

@@ -28,6 +28,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <input type="submit" onclick="window.location.href = '/logout'" value="Cerrar Sesión"/>
                 </div>
             </div>
+            <div th:unless="${usuario != null}" class="btn btn-primary align-end">
+
+                <input type="submit" onclick="window.location.href = '/login'" value="Ingresar"/>
+
+            </div>
         </div>
 
         <div class='container rounded-4 bg-secondary bg-gradient text-white mb-2'>
@@ -53,7 +58,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
             <div class="container bg-dark bg-gradient text-secondary">
                 Contenido de Egg News
             </div>
-            <div th:if='${usuario.rol == "PERIODISTA"}' class="col-auto btn btn-primary position-absolute bottom-0 end-0">
+            <div sec:authorize="hasAnyRole('PERIODISTA','ADMIN')" th:if='${usuario.rol == "PERIODISTA"}' class="col-auto btn btn-primary position-absolute bottom-0 end-0">
                 <input type="submit" onclick="window.location.href = '/panelAdmin'" value="Crear noticia"/>
             </div>
         </footer>

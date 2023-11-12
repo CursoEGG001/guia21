@@ -97,8 +97,10 @@ public class NoticiasControlador {
     @PreAuthorize("hasAnyRole('ROLE_USUARIO','ROLE_PERIODISTA', 'ROLE_ADMIN')")
     @GetMapping("/noticia/{id}")
     public String noticia(@PathVariable("id") String id, ModelMap modelo) {
-
-        modelo.put("noticia", noticiasServicio.getOne(id));
+        
+        Noticias noticia = noticiasServicio.getOne(id);
+               
+        modelo.put("noticia", noticia );
 
         return "noticia.html";
     }
