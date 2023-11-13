@@ -19,11 +19,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <div class="card-body p-4">
                         <p>¡Bienvenido, <b th:text="${usuario.nombre}"></b>!</p>
                         <p class="card-text">Usted está con sesión iniciada</p>
+                        <div class="btn btn-primary align-center">
+                            <input type="submit" onclick="window.location.href = '/logout'" value="Cerrar Sesión"/>
+                        </div>
                     </div>
                 </div>
                 <div th:unless="${usuario != null}" class="btn btn-primary align-center">
 
-                    <input type="submit" onclick="window.location.href='/login'" value="Ingresar"/>
+                    <input type="submit" onclick="window.location.href = '/login'" value="Ingresar"/>
 
                 </div>
 

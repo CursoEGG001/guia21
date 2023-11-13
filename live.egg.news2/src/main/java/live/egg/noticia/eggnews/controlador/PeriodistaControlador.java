@@ -50,7 +50,7 @@ public class PeriodistaControlador {
         modelo.addAttribute("periodistas", periodistas);
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.put("usuario", usuario);
-        return ("/panelAdmin.html");
+        return ("panelAdmin.html");
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PERIODISTA', 'ROLE_ADMIN')")
@@ -65,7 +65,9 @@ public class PeriodistaControlador {
                 noticiasServicio.crearNoticia(titulo, cuerpo, fecha);
             } else {
                 noticiasServicio.crearNoticia(titulo, cuerpo, fecha, creador);
-                periodistaRepositorio.save((Periodista) usuarioServicio.getOne(creador));
+                Periodista deLaNoticia = (Periodista) usuarioServicio.getOne(creador);
+                
+                periodistaRepositorio.save(deLaNoticia);
             }
 
             modelo.put("exito", "La noticia fue cargada correctamente!");

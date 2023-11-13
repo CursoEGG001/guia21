@@ -25,6 +25,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <p class="card-text" th:text="${exito}"></p>
                 </div>
             </div>
+            <div class="row">
+                <a class="col-3 text-end" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/usuarios}">Mostrar Lista de usuarios</a>
+            </div>
             <form class="formulario container container-lg p-4" sec:authorize="hasAnyRole('PERIODISTA','ADMIN')" th:action="@{/noticia/crear}" method="POST">
 
                 <div class="form-group my-3 g-2">
@@ -44,18 +47,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                                 />
                     </select>
                 </div>
+                <div class="form-group my-3">
+                    <p>Usuario Activo: <span sec:authentication="name"></span> como <span sec:authentication="principal.authorities"></span></p><br/>
 
+
+                </div>
                 <button type="submit" class="btn btn-primary mt-3 botones">Guardar</button>
             </form>
 
 
             <form class="formulario" sec:authorize="hasRole('ADMIN')" th:action="@{/registro}" method="POST">
+                <h3 class="fs-4">¡Registrar Usuario!</h3>
 
-                <div class="form-group my-3">
-                    <p>Usuario Activo: <span sec:authentication="name"></span> como <span sec:authentication="principal.authorities"></span></p><br/>
-                    <h3 class="fs-4">¡Registrar Usuario!</h3>
-
-                </div>
                 <div class="input-group input-group-sm my-3">
                     <input type="text" class="form-control" name="nombre" placeholder="NOMBRE" th:value="${nombre}" />
                 </div>

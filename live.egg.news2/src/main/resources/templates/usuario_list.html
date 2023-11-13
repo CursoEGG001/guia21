@@ -14,40 +14,43 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <body>
 
         <div class="container m-5" >
+            <h2>Listado de Usuarios de EGG News</h2>
 
-            <table class="table table-dark">
-                <thead class="align-items-center">
-                    <tr >
-                        <th scope="col">Id del Usuario</th>
-                        <th scope="col">Nombre</th>
+            <div class="card">
+                <table class="table table-dark">
+                    <thead class="align-items-center">
+                        <tr >
+                            <th scope="col">Id del Usuario</th>
+                            <th scope="col">Nombre</th>
 
-                        <th scope="col">Rol</th>
-                        <th scope="col">Cambiar Rol</th>
-                        <th scope="col">Modificar</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col" sec:authorize="hasRole('ADMIN')">Cambiar Rol</th>
+                            <th scope="col">Modificar</th>
 
-                    </tr>
-                </thead>
-                <tbody th:each="usuario : ${usuarios}"> 
-                    <tr>
-                        <th scope="row" th:text="${usuario.id}"></th>
-                        <td th:text="${usuario.nombre}"></td>
+                        </tr>
+                    </thead>
+                    <tbody th:each="usuario : ${usuarios}"> 
+                        <tr>
+                            <th scope="row" th:text="${usuario.id}"></th>
+                            <td th:text="${usuario.nombre}"></td>
 
-                        <td th:text="${usuario.rol}"></td>
+                            <td th:text="${usuario.rol}"></td>
 
-                        <td>
-                            <a th:href= "@{/admin/modificarRol/__${usuario.id}__}"><i class="fas fa-feather-alt"></i>Cambiar</a>
-                        </td>
+                            <td sec:authorize="hasRole('ADMIN')">
+                                <a th:href= "@{/admin/modificarRol/__${usuario.id}__}"><i class="fas fa-feather-alt"></i>Cambiar</a>
+                            </td>
 
-                        <td>
-                            <a th:href= "@{/usuario/modificar/__${usuario.id}__}"><i class="fas fa-feather-alt"></i> Modificar</a>
-                        </td>
+                            <td>
+                                <a th:href= "@{/admin/modificar/__${usuario.id}__}"><i class="fas fa-feather-alt"></i> Modificar</a>
+                            </td>
 
-                    </tr>
+                        </tr>
 
-                </tbody>
-            </table>
-            
-            
+                    </tbody>
+                </table>
+            </div>
+
+
 
             <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
                 <div class="card-body">
