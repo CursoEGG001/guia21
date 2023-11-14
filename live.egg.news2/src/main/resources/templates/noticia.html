@@ -20,7 +20,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
         <main class='container container-sm row '>
             <div class="card  card-body bg-dark text-bg-dark">  
                 <div class='col-9 card-text' th:text="${noticia.cuerpo}">
-                    <div class="card-footer" th:text="${noticia.creador.nombre}">creador
+                    <div class="card-footer" th:if="${noticia.creador != null}" th:text="${noticia.creador.nombre}">creador
                     </div>
                 </div>
 
