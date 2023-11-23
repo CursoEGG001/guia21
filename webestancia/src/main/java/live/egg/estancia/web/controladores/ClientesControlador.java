@@ -71,8 +71,10 @@ public class ClientesControlador {
     @PostMapping("/registro")
     public String registro(@RequestParam(required = false) Long id, @RequestParam String nombre, @RequestParam String email, @RequestParam String pais, @RequestParam String ciudad, @RequestParam String calle, @RequestParam Integer numero, @RequestParam String codigoPostal, ModelMap modelo) {
 
+        System.out.println("(registrando cliente) id :" + id);
         try {
             if (id != null) {
+
                 clienteServicio.modificarClientes(id, nombre, calle, numero, codigoPostal, ciudad, pais, email);
             } else {
                 clienteServicio.crearCliente(nombre, calle, numero, codigoPostal, ciudad, pais, email);

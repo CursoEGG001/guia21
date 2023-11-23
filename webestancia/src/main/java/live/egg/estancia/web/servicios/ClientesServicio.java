@@ -27,9 +27,8 @@ public class ClientesServicio {
     public void crearCliente(String nombre, String calle, int numero, String codigoPostal, String ciudad, String pais, String email) throws MiException {
 
         valida(nombre, calle, numero, codigoPostal, ciudad, pais, email);
-        
-        Clientes cliente = new Clientes();
 
+        Clientes cliente = new Clientes();
         cliente.setNombre(nombre);
         cliente.setCalle(calle);
         cliente.setNumero(numero);
@@ -51,12 +50,13 @@ public class ClientesServicio {
     public void modificarClientes(Long idCliente, String nombre, String calle, int numero, String codigoPostal, String ciudad, String pais, String email) throws MiException {
 
         valida(nombre, calle, numero, codigoPostal, ciudad, pais, email);
-        
+
         Optional<Clientes> clienteAcambiar = clienteRepositorio.findById(idCliente);
 
         Clientes cliente = new Clientes();
 
         if (clienteAcambiar.isPresent()) {
+            cliente.setIdCliente(idCliente);
             cliente.setNombre(nombre);
             cliente.setCalle(calle);
             cliente.setNumero(numero);
@@ -64,9 +64,10 @@ public class ClientesServicio {
             cliente.setCiudad(ciudad);
             cliente.setPais(pais);
             cliente.setEmail(email);
+            cliente.setActive(clienteAcambiar.get().getActive());
 
             if (clienteAcambiar.get().getActive()) {
-                clienteRepositorio.save(cliente);
+                clienteRepositorio.saveAndFlush(cliente);
             }
         }
 
@@ -93,7 +94,7 @@ public class ClientesServicio {
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("el nombre no puede ser nulo o estar vacio");
         }
-        if (codigoPostal.isEmpty()||codigoPostal == null) {
+        if (codigoPostal.isEmpty() || codigoPostal == null) {
             throw new MiException("el código postal no puede ser nulo");
         }
         if (email.isEmpty() || email == null || !email.contains("@")) {

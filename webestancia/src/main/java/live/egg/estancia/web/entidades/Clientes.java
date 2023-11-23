@@ -40,7 +40,7 @@ public class Clientes implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_cliente")
-    private Integer idCliente;
+    private Long idCliente;
     @Basic(optional = false)
     private String nombre;
     private String calle;
@@ -69,11 +69,11 @@ public class Clientes implements Serializable {
     public Clientes() {
     }
 
-    public Clientes(Integer idCliente) {
+    public Clientes(Long idCliente) {
         this.idCliente = idCliente;
     }
 
-    public Clientes(Integer idCliente, String nombre, String calle, int numero, String codigoPostal, String ciudad, String pais, String email, Boolean active) {
+    public Clientes(Long idCliente, String nombre, String calle, int numero, String codigoPostal, String ciudad, String pais, String email, Boolean active) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.calle = calle;
@@ -86,11 +86,11 @@ public class Clientes implements Serializable {
     }
 
 
-    public Integer getIdCliente() {
+    public Long getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(Integer idCliente) {
+    public void setIdCliente(Long idCliente) {
         this.idCliente = idCliente;
     }
 
