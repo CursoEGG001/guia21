@@ -21,6 +21,8 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 /**
  *
@@ -48,7 +50,7 @@ public class Casas implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_casa")
-    private Integer idCasa;
+    private Long idCasa;
     private String calle;
     @Basic(optional = false)
     private int numero;
@@ -61,10 +63,12 @@ public class Casas implements Serializable {
     @Basic(optional = false)
     @Column(name = "fecha_desde")
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = ISO.DATE)
     private Date fechaDesde;
     @Basic(optional = false)
     @Column(name = "fecha_hasta")
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = ISO.DATE)
     private Date fechaHasta;
     @Basic(optional = false)
     @Column(name = "tiempo_minimo")
@@ -98,11 +102,11 @@ public class Casas implements Serializable {
     public Casas() {
     }
 
-    public Casas(Integer idCasa) {
+    public Casas(Long idCasa) {
         this.idCasa = idCasa;
     }
 
-    public Casas(Integer idCasa, String calle, int numero, String codigoPostal, String ciudad, String pais, Date fechaDesde, Date fechaHasta, int tiempoMinimo, int tiempoMaximo, BigDecimal precioHabitacion, String tipoVivienda, Boolean active) {
+    public Casas(Long idCasa, String calle, int numero, String codigoPostal, String ciudad, String pais, Date fechaDesde, Date fechaHasta, int tiempoMinimo, int tiempoMaximo, BigDecimal precioHabitacion, String tipoVivienda, Boolean active) {
         this.idCasa = idCasa;
         this.calle = calle;
         this.numero = numero;
@@ -118,11 +122,11 @@ public class Casas implements Serializable {
         this.active = active;
     }
 
-    public Integer getIdCasa() {
+    public Long getIdCasa() {
         return idCasa;
     }
 
-    public void setIdCasa(Integer idCasa) {
+    public void setIdCasa(Long idCasa) {
         this.idCasa = idCasa;
     }
 
@@ -238,5 +242,5 @@ public class Casas implements Serializable {
     public String toString() {
         return "live.egg.estancia.web.entidades.Casas[ idCasa=" + idCasa + " ]";
     }
-    
+
 }

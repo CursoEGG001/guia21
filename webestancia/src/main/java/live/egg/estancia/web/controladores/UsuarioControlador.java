@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,13 +31,23 @@ public class UsuarioControlador {
     UsuarioServicio usuarioServicio;
 
     @GetMapping("/")
-    public String page(HttpSession session,Model model) {
-       
+    public String page(HttpSession session, Model model) {
+
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         Usuario muestra = usuarioServicio.listarUsuarios().get(0);
         model.addAttribute("usuario", muestra);
         model.addAttribute("usuarioActivo", logueado);
         return "index.html";
+    }
+
+    @GetMapping("/perfil/{id}")
+    public String perfilUsuario(@PathVariable Long id, HttpSession session, Model model) {
+
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        Usuario muestra = usuarioServicio.getOne(id);
+        model.addAttribute("usuario", muestra);
+        model.addAttribute("usuarioActivo", logueado);
+        return "usuario.html";
     }
 
     @GetMapping("/registrar")
