@@ -5,7 +5,6 @@
 package live.egg.estancia.web.controladores;
 
 import java.util.List;
-import java.util.Optional;
 import live.egg.estancia.web.entidades.Clientes;
 import live.egg.estancia.web.excepciones.MiException;
 import live.egg.estancia.web.servicios.ClientesServicio;
@@ -71,7 +70,6 @@ public class ClientesControlador {
     @PostMapping("/registro")
     public String registro(@RequestParam(required = false) Long id, @RequestParam String nombre, @RequestParam String email, @RequestParam String pais, @RequestParam String ciudad, @RequestParam String calle, @RequestParam Integer numero, @RequestParam String codigoPostal, ModelMap modelo) {
 
-        System.out.println("(registrando cliente) id :" + id);
         try {
             if (id != null) {
 

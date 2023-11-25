@@ -6,7 +6,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 <html lang="ES-ar" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
         <meta charset="utf-8" />
-        <title>Estancia Egg - Registro de Casa</title>
+        <title>Estancia Egg - ¡Escribe un comentario!</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
         <link rel="stylesheet" href="/css/formulario.css" />
     </head>
@@ -24,10 +24,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a class="nav-link disabled" th:if="${casa != null}" aria-disabled="true">Modifique</a>
+                                <a class="nav-link disabled" th:if="${cliente != null}" aria-disabled="true">Modifique</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link disabled" aria-disabled="true">Registrando</a>
+                                <a class="nav-link disabled" aria-disabled="true">Comentando</a>
                             </li>
                         </ul>
                     </div>
@@ -53,52 +53,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
 
                 <div class='row justify-content-center'>
-                    <form class="formulario row justify-contet-center" th:action="@{/casas/registro}" method="POST">
+                    <form class="formulario row justify-contet-center" th:action="@{/comentarios/registro}" method="POST">
 
 
                         <div class="form-group my-3">
-                            <h3 class="card-title">¡Registra tu casa!</h3>
-                        </div>
-                        <div th:if="${casa != null}">
-                            <input th:value="${casa.idCasa}" hidden="hidden" name="id" />
-                        </div>
-                        <div class="input-group my-3">
-                            <input type="text" class="form-control" name="calle" placeholder="Calle" th:value="${calle}" />
-                        </div>
-                        <div class="input-group my-3">
-                            <input type="number" class="form-control" name="numero" placeholder="Numero" th:value="${numero}" />
-                        </div>
-                        <div class="input-group my-3">
-                            <input type="text" class="form-control" name="codigoPostal" placeholder="Código Postal" th:value="${codigoPostal}" />
-                        </div>
-                        <div class="input-group my-3">
-                            <input type="text" class="form-control" name="ciudad" placeholder="Ciudad" th:value="${ciudad}" />
+                            <h3 th:unless="${comentario != null}" class="card-title">¡Comente!</h3>
                         </div>
 
-                        <div class="input-group my-3">
-                            <input type="date" class="form-control" name="fechaDesde" placeholder="Fecha de habilitación" th:value="${fechaDesde}" />
-                        </div>
-                        <div class="input-group my-3">
-                            <input type="date" class="form-control" name="fechaHasta" placeholder="Fecha de salida" th:value="${fechaHasta}" />
-                        </div>
-                        <div class="input-group my-3">
-                            <input type="text" class="form-control" name="pais" placeholder="Escriba un país" th:value="${pais}" />
-                        </div>
-                        <div class="input-group my-3">
-                            <input type="number" class="form-control" name="tiempoMaximo" placeholder="Tiempo de alquiler(Máximo)" th:value="${tiempoMaximo}" />
-                        </div>
-                        <div class="input-group my-3">
-                            <input type="number" class="form-control" name="tiempoMinimo" placeholder="Tiempo de alquiler(Mínimo)" th:value="${tiempoMinimo}" />
-                        </div>
-                        <div class="input-group my-3">
-                            <input type="number" class="form-control" name="precioHabitacion" placeholder="Precio de alquiler" th:value="${precioHabitacion}" />
-                        </div>
-                        <div class="input-group my-3">
-                            <input type="text" class="form-control" name="tipoVivienda" placeholder="Tipo de vivienda" th:value="${tipoVivienda}" />
+                        <div th:if="${comentario != null}">
+                            <input th:value="${comentario.idComentario}" hidden="hidden" name="idComentario" />
                         </div>
 
+                        <div class="form-group my-3">
+                            <input type="text" class="form-control" name="comenta" placeholder="COMENTARIO" th:value="${comenta}" />
+                        </div>
 
-                        <button type="submit" class="btn btn-primary mt-3 botones">Registrar casa</button>
+                        <select name="idCasa">
+
+                            <option>Seleccionar Casa</option>
+
+                            <option th:each="casa : ${casas}"
+                                    th:value="${casa.idCasa}"
+                                    th:text="${casa.calle +' '+ casa.numero}"
+                                    />
+                        </select>
+
+                        <button type="submit" class="btn btn-primary mt-3 botones">Comentar</button>
                     </form>
                 </div>
 

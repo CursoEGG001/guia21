@@ -33,7 +33,7 @@ public class Comentarios implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_comentario")
-    private Integer idComentario;
+    private Long idComentario;
     private String comentario;
     @JoinColumn(name = "id_casa", referencedColumnName = "id_casa")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -50,7 +50,7 @@ public class Comentarios implements Serializable {
         this.active = active;
     }
 
-    public Comentarios(Integer idComentario, String comentario, Casas idCasa, Boolean active) {
+    public Comentarios(Long idComentario, String comentario, Casas idCasa, Boolean active) {
         this.idComentario = idComentario;
         this.comentario = comentario;
         this.idCasa = idCasa;
@@ -60,15 +60,15 @@ public class Comentarios implements Serializable {
     public Comentarios() {
     }
 
-    public Comentarios(Integer idComentario) {
+    public Comentarios(Long idComentario) {
         this.idComentario = idComentario;
     }
 
-    public Integer getIdComentario() {
+    public Long getIdComentario() {
         return idComentario;
     }
 
-    public void setIdComentario(Integer idComentario) {
+    public void setIdComentario(Long idComentario) {
         this.idComentario = idComentario;
     }
 

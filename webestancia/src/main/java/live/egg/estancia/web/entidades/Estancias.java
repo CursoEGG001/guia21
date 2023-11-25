@@ -19,6 +19,7 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -45,10 +46,12 @@ public class Estancias implements Serializable {
     @Basic(optional = false)
     @Column(name = "fecha_desde")
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date fechaDesde;
     @Basic(optional = false)
     @Column(name = "fecha_hasta")
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date fechaHasta;
     @JoinColumn(name = "id_casa", referencedColumnName = "id_casa")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -65,7 +68,6 @@ public class Estancias implements Serializable {
     public void setActive(Boolean active) {
         this.active = active;
     }
-    
 
     public Estancias() {
     }
@@ -153,5 +155,5 @@ public class Estancias implements Serializable {
     public String toString() {
         return "live.egg.estancia.web.entidades.Estancias[ idEstancia=" + idEstancia + " ]";
     }
-    
+
 }

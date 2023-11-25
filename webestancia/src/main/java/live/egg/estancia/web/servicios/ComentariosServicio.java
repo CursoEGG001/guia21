@@ -6,8 +6,8 @@ package live.egg.estancia.web.servicios;
 
 import java.util.List;
 import java.util.Optional;
-import live.egg.estancia.web.entidades.Casas;
 import live.egg.estancia.web.entidades.Comentarios;
+import live.egg.estancia.web.excepciones.MiException;
 import live.egg.estancia.web.repositorios.CasasRepository;
 import live.egg.estancia.web.repositorios.ComentariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +28,12 @@ public class ComentariosServicio {
     CasasRepository casaRepositorio;
 
     @Transactional
-    public void crearComentario(String comenta, Casas idCasa) {
-
+    public void crearComentario(String comenta, Long idCasa) throws MiException {
+        valida(comenta, idCasa);
         Comentarios comentario = new Comentarios();
 
         comentario.setComentario(comenta);
-        comentario.setIdCasa(idCasa);
+        comentario.setIdCasa(casaRepositorio.getReferenceById(idCasa));
         comentario.setActive(Boolean.TRUE);
 
         comentarioRepositorio.save(comentario);
@@ -46,13 +46,14 @@ public class ComentariosServicio {
     }
 
     @Transactional
-    public void modificarComentario(Long idComentario, String comenta, Casas idCasa) {
+    public void modificarComentario(Long idComentario, String comenta, Long idCasa) throws MiException {
+        valida(comenta, idCasa);
         Optional<Comentarios> cmAcambiar = comentarioRepositorio.findById(idComentario);
 
         Comentarios cm = new Comentarios();
 
         cm.setComentario(comenta);
-        cm.setIdCasa(idCasa);
+        cm.setIdCasa(casaRepositorio.getReferenceById(idCasa));
 
         if (cmAcambiar.get().getActive()) {
 
@@ -65,6 +66,15 @@ public class ComentariosServicio {
     @Transactional
     public Comentarios getOne(Long idComentario) {
         return comentarioRepositorio.getReferenceById(idComentario);
+    }
+
+    private void valida(String comenta, Long idCasa) throws MiException {
+        if (idCasa == null) {
+            throw new MiException("Identificador Inválido");
+        }
+        if (comenta == null) {
+            throw new MiException("Comentario nulo");
+        }
     }
 
 }

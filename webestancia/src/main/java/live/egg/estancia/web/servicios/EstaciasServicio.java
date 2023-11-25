@@ -7,6 +7,8 @@ package live.egg.estancia.web.servicios;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import live.egg.estancia.web.entidades.Casas;
+import live.egg.estancia.web.entidades.Clientes;
 import live.egg.estancia.web.entidades.Estancias;
 import live.egg.estancia.web.repositorios.CasasRepository;
 import live.egg.estancia.web.repositorios.ClientesRepository;
@@ -32,13 +34,15 @@ public class EstaciasServicio {
     EstanciasRepository estanciasRepositorio;
 
     @Transactional
-    public void crearEstancia(String nombreHuesped, Date fechaDesde, Date fechaHasta) {
+    public void crearEstancia(String nombreHuesped, Date fechaDesde, Date fechaHasta,Casas idCasa,Clientes idCliente) {
 
         Estancias estancia = new Estancias();
 
         estancia.setNombreHuesped(nombreHuesped);
         estancia.setFechaDesde(fechaDesde);
         estancia.setFechaHasta(fechaHasta);
+        estancia.setIdCasa(idCasa);
+        estancia.setIdCliente(idCliente);
         estancia.setActive(Boolean.TRUE);
 
         estanciasRepositorio.save(estancia);
@@ -51,7 +55,7 @@ public class EstaciasServicio {
     }
 
     @Transactional
-    public void modificarEstancias(Long idEstancia, String nombreHuesped, Date fechaDesde, Date fechaHasta) {
+    public void modificarEstancias(Long idEstancia, String nombreHuesped, Date fechaDesde, Date fechaHasta,Casas idCasa,Clientes idCliente) {
 
         Optional<Estancias> estAcambiar = estanciasRepositorio.findById(idEstancia);
 
@@ -63,8 +67,8 @@ public class EstaciasServicio {
             estancia.setNombreHuesped(nombreHuesped);
             estancia.setFechaDesde(fechaDesde);
             estancia.setFechaHasta(fechaHasta);
-            estancia.setIdCasa(estAcambiar.get().getIdCasa());
-            estancia.setIdCliente(estAcambiar.get().getIdCliente());
+            estancia.setIdCasa(idCasa);
+            estancia.setIdCliente(idCliente);
 
             if (estAcambiar.get().getActive()) {
                 estanciasRepositorio.save(estancia);
@@ -78,5 +82,7 @@ public class EstaciasServicio {
     public Estancias getOne(Long id) {
         return estanciasRepositorio.getReferenceById(id);
     }
+    
+    
 
 }
