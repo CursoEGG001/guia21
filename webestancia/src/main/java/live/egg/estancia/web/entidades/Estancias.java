@@ -39,7 +39,7 @@ public class Estancias implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_estancia")
-    private Integer idEstancia;
+    private Long idEstancia;
     @Basic(optional = false)
     @Column(name = "nombre_huesped")
     private String nombreHuesped;
@@ -72,22 +72,22 @@ public class Estancias implements Serializable {
     public Estancias() {
     }
 
-    public Estancias(Integer idEstancia) {
+    public Estancias(Long idEstancia) {
         this.idEstancia = idEstancia;
     }
 
-    public Estancias(Integer idEstancia, String nombreHuesped, Date fechaDesde, Date fechaHasta) {
+    public Estancias(Long idEstancia, String nombreHuesped, Date fechaDesde, Date fechaHasta) {
         this.idEstancia = idEstancia;
         this.nombreHuesped = nombreHuesped;
         this.fechaDesde = fechaDesde;
         this.fechaHasta = fechaHasta;
     }
 
-    public Integer getIdEstancia() {
+    public Long getIdEstancia() {
         return idEstancia;
     }
 
-    public void setIdEstancia(Integer idEstancia) {
+    public void setIdEstancia(Long idEstancia) {
         this.idEstancia = idEstancia;
     }
 

@@ -5,6 +5,7 @@
 package live.egg.estancia.web.controladores;
 
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import live.egg.estancia.web.entidades.Usuario;
 import live.egg.estancia.web.excepciones.MiException;
 import live.egg.estancia.web.servicios.UsuarioServicio;
@@ -38,6 +39,15 @@ public class UsuarioControlador {
         model.addAttribute("usuario", muestra);
         model.addAttribute("usuarioActivo", logueado);
         return "index.html";
+    }
+    @GetMapping("/lista")
+    public String listarUsuarios(HttpSession session, Model model) {
+
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        List<Usuario> muestra = usuarioServicio.listarUsuarios();
+        model.addAttribute("usuarios", muestra);
+        model.addAttribute("usuarioActivo", logueado);
+        return "usuarios_list";
     }
 
     @GetMapping("/perfil/{id}")

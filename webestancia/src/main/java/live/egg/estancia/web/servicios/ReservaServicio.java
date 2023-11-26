@@ -54,27 +54,31 @@ public class ReservaServicio {
     }
 
     @Transactional
-    public void modificarReserva(Long id, Clientes cliente, List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida){
-        
+    public Reserva GetOne(Long id) {
+        return reservaRepositorio.getReferenceById(id);
+    }
+
+    @Transactional
+    public void modificarReserva(Long id, Clientes cliente, List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) {
+
         Optional<Reserva> rsvAcambiar = reservaRepositorio.findById(id);
-        
+
         Reserva reserva = new Reserva();
-        
+
         if (rsvAcambiar.isPresent()) {
-            
+
             reserva.setCliente(cliente);
             reserva.setFechaLlegada(fechaLlegada);
             reserva.setFechaSalida(fechaSalida);
             reserva.setId(id);
             reserva.setAlquiler(alquiler);
             reserva.setActive(Boolean.TRUE);
-            
+
             if (rsvAcambiar.get().getActive()) {
                 reservaRepositorio.save(reserva);
             }
-            
+
         }
     }
-    
-    
+
 }

@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author pc
  */
 @Service
-public class EstaciasServicio {
+public class EstanciasServicio {
 
     @Autowired
     ClientesRepository clienteRepositorio;
@@ -50,7 +50,7 @@ public class EstaciasServicio {
     }
 
     @Transactional
-    public List<Estancias> listarEstanciases() {
+    public List<Estancias> listarEstancias() {
         return estanciasRepositorio.findAll();
     }
 
