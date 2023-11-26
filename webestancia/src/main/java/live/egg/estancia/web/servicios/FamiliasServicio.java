@@ -24,7 +24,7 @@ public class FamiliasServicio {
     FamiliasRepository familiasRepositorio;
 
     @Transactional
-    public void crearFamilia(Integer idFamilia, String nombre, int edadMinima, int edadMaxima, int numHijos, String email) {
+    public void crearFamilia(String nombre, int edadMinima, int edadMaxima, int numHijos, String email) {
 
         Familias familia = new Familias();
 
@@ -48,11 +48,9 @@ public class FamiliasServicio {
 
         Optional<Familias> fmAcambiar = familiasRepositorio.findById(idFamilia);
 
-        Familias familia = new Familias();
-
         if (fmAcambiar.isPresent()) {
+            Familias familia = fmAcambiar.get();
 
-            familia.setIdFamilia(fmAcambiar.get().getIdFamilia());
             familia.setNombre(nombre);
             familia.setEmail(email);
             familia.setEdadMinima(edadMinima);

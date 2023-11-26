@@ -14,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -47,7 +49,7 @@ public class FamiliasControlador {
     }
 
     @GetMapping("/registrar/{idFamilia}")
-    public String asentarEstancias(@PathVariable Long idFamilia, ModelMap model) {
+    public String asentarFamilia(@PathVariable Long idFamilia, ModelMap model) {
 
         Familias familia = familiasServicio.getOne(idFamilia);
         String nombre = familia.getNombre();
@@ -58,6 +60,7 @@ public class FamiliasControlador {
 
         List<Casas> casas = casasServicio.listarCasas();
 
+        model.addAttribute("familia", familia);
         model.addAttribute("idFamilia", idFamilia);
         model.addAttribute("nombre", nombre);
         model.addAttribute("edadMinima", edadMinima);
@@ -67,6 +70,32 @@ public class FamiliasControlador {
         model.addAttribute("casas", casas);
 
         return "familias_form";
+    }
+
+    @PostMapping("/registro")
+    public String registroFamilia(@RequestParam(required = false) Long idFamilia, @RequestParam String nombre, @RequestParam int edadMinima, @RequestParam int edadMaxima, @RequestParam int numHijos, @RequestParam String email, @RequestParam Long idCasa, ModelMap modelo) {
+        try {
+
+            if (idFamilia == null) {
+                familiasServicio.crearFamilia(nombre, edadMinima, edadMaxima, numHijos, email);
+            } else {
+                familiasServicio.modificarFamilia(idFamilia, nombre, edadMinima, edadMaxima, numHijos, email);
+            }
+
+        } catch (Exception e) {
+            List<Casas> casas = casasServicio.listarCasas();
+
+            modelo.addAttribute("idFamilia", idFamilia);
+            modelo.addAttribute("nombre", nombre);
+            modelo.addAttribute("edadMinima", edadMinima);
+            modelo.addAttribute("edadMaxima", edadMaxima);
+            modelo.addAttribute("numHijos", numHijos);
+            modelo.addAttribute("email", email);
+            modelo.addAttribute("casas", casas);
+
+            return "familias_form";
+        }
+        return "redirect:/";
     }
 
 }
