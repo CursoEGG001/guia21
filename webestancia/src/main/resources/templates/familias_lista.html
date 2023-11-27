@@ -6,75 +6,82 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
 <html lang="ES-ar" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
         <title>Estancia Egg - Listado de Familias</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-        <link rel="stylesheet" href="/css/formulario.css" />
     </head>
     <body>
 
-        <header class="container mb-5">
-            <div class="row">
-                <h1 class="col">Listado de Familias</h1>
-            </div>
+        <header class="container container-lg">
+            <nav th:replace="~{/fragments/navbar :: nav}"></nav>
         </header>
-
-        <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-            <div class="card-body">
-                <h5 class="card-title">Exito 👍</h5>
-                <p class="card-text" th:text="${exito}"></p>
-            </div>
-        </div>
-        <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError" >
-            <div class="card-body">
-                <h5 class="card-title">Error 👎</h5>
-                <p class="card-text" th:text="${error}"></p>
-            </div>
-        </div>
-
-        <div class="container m-5" >
-
-            <table class="table table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">Id de Familia</th>
-                        <th scope="col">Nombre Familia</th>
-                        <th scope="col">Edad Menor</th>
-                        <th scope="col">Edad Mayor</th>
-                        <th scope="col">Número de Hijos</th>
-                        <th scope="col">E-Mail</th>
-                        <th scope="col">Casa de alojamiento</th>
-                        <th scope="col">Acciones</th>
-
-                    </tr>
-                </thead>
-                <tbody th:each="familia : ${familias}"> 
-                    <tr th:if="${familia.active}">
-                        <td scope="row" th:text="${familia.idFamilia}"></td>
-                        <td th:text="${familia.nombre}"></td>
-                        <td th:text="${familia.edadMinima}"></td>
-                        <td th:text="${familia.edadMaxima}"></td>
-                        <td th:text="${familia.numHijos}"></td>
-                        <td th:text="${familia.email}"></td>
-                        <td th:text="${familia.idCasaFamilia.calle+' '+familia.idCasaFamilia.numero}"></td>
-
-                        <td>
-                            <a th:href= "@{/familias/registrar/__${familia.idFamilia}__}"><i class="fas fa-feather-alt">  </i> Modificar </a>
-                        </td>
-
-                    </tr>
-
-                </tbody>
-            </table>
-
-            <section class="py-5 text-center container">
-                <div class="row py-lg-5">
-                    <div class="col-lg-6 col-md-8 mx-auto">
-                        <a th:href="@{/}" class="btn btn-primary my-2">Volver</a>
-
+        <div class="container">
+            <div class="container"> 
+                <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+                    <div class="card-body">
+                        <h5 class="card-title">Exito 👍</h5>
+                        <p class="card-text" th:text="${exito}"></p>
                     </div>
                 </div>
-            </section>
+                <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError" >
+                    <div class="card-body">
+                        <h5 class="card-title">Error 👎</h5>
+                        <p class="card-text" th:text="${error}"></p>
+                    </div>
+                </div>
 
+                <div class="container m-5" >
+                    <div class="row">
+                        <h1 class="col">Listado de Familias</h1>
+
+
+                        <table class="table table-dark">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id de Familia</th>
+                                    <th scope="col">Nombre Familia</th>
+                                    <th scope="col">Edad Menor</th>
+                                    <th scope="col">Edad Mayor</th>
+                                    <th scope="col">Número de Hijos</th>
+                                    <th scope="col">E-Mail</th>
+                                    <th scope="col">Casa de alojamiento</th>
+                                    <th scope="col">Acciones</th>
+
+                                </tr>
+                            </thead>
+                            <tbody th:each="familia : ${familias}"> 
+                                <tr th:if="${familia.active}">
+                                    <td scope="row" th:text="${familia.idFamilia}"></td>
+                                    <td th:text="${familia.nombre}"></td>
+                                    <td th:text="${familia.edadMinima}"></td>
+                                    <td th:text="${familia.edadMaxima}"></td>
+                                    <td th:text="${familia.numHijos}"></td>
+                                    <td th:text="${familia.email}"></td>
+                                    <td th:text="${familia.idCasaFamilia.calle+' '+familia.idCasaFamilia.numero}"></td>
+
+                                    <td>
+                                        <a th:href= "@{/familias/registrar/__${familia.idFamilia}__}"><i class="fas fa-feather-alt">  </i> Modificar </a>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <section class="py-5 text-center container">
+                        <div class="row py-lg-5">
+                            <div class="col-lg-6 col-md-8 mx-auto">
+                                <a th:href="@{/}" class="btn btn-primary my-2">Volver</a>
+
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
         </div>
+        <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
     </body>
 </html>

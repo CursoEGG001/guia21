@@ -1,0 +1,87 @@
+<nav class="navbar navbar-expand-lg navBar">
+    <div class="container">
+        <a href="/" class="navbar-brand d-flex align-items-center">
+            <img class="logo" src="/img/Egg.png" alt="Img logo egg"/>
+        </a>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse elementosNav" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto elementos">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" sec:authorize ="isAuthenticated()" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Usuario
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                    <li><a class="dropdown-item"  th:href="@{/registrar}">Registrar</a></li>
+                    <li><hr class="dropdown-divider"/></li>
+
+                    <li><a class="dropdown-item" th:href="@{/usuario/lista}">Listar Usuarios</a></li>
+                </ul>
+            </li>
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Clientes
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                    <li><a class="dropdown-item"  th:href="@{/clientes/registrar}">Crear Cliente</a></li>
+                    <li><hr class="dropdown-divider"/></li>
+
+                    <li><a class="dropdown-item" th:href="@{/clientes/lista}">Listar Clientes</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Estancias
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                    <li><a class="dropdown-item" th:href="@{/estancias/registrar}">Crear Estancia</a></li>
+                    <li><hr class="dropdown-divider"/></li>
+
+                    <li><a class="dropdown-item" th:href="@{/estancias/lista}">Listar Estancias</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Reserva
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" th:href="@{/reserva/registrar}" >Reservar</a></li>
+                </ul>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/reserva/lista" >Ver Reservas</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" sec:authorize ="isAuthenticated()">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" sec:authentication="name">
+                    Usuario
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                        <a class="dropdown-item" th:href="@{/logout}" >Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " sec:authorize ="!isAuthenticated()" th:href="@{/usuario/registrar}" id="navbarDropdown" role="button" aria-expanded="false">
+                    Registrate!
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " sec:authorize ="!isAuthenticated()" th:href="@{/usuario/login}" id="navbarDropdown" role="button" aria-expanded="false">
+                    LOGIN!
+                </a>
+
+            </li>
+        </ul>
+    </div>
+</nav>
