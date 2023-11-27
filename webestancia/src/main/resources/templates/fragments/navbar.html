@@ -14,37 +14,42 @@
                     Usuario
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
                     <li><a class="dropdown-item"  th:href="@{/registrar}">Registrar</a></li>
                     <li><hr class="dropdown-divider"/></li>
-
                     <li><a class="dropdown-item" th:href="@{/usuario/lista}">Listar Usuarios</a></li>
                 </ul>
             </li>
-
-
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Clientes
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
                     <li><a class="dropdown-item"  th:href="@{/clientes/registrar}">Crear Cliente</a></li>
+                    <li><a class="dropdown-item"  th:href="@{/familias/registrar}">Crear Familia</a></li>
+                    <li><a class="dropdown-item"  th:href="@{/familias/lista}">Ver Familias</a></li>
                     <li><hr class="dropdown-divider"/></li>
-
                     <li><a class="dropdown-item" th:href="@{/clientes/lista}">Listar Clientes</a></li>
                 </ul>
             </li>
-
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Casas
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item"  th:href="@{/casas/registrar}">Crear Casas</a></li>
+                    <li><hr class="dropdown-divider"/></li>
+                    <li><a class="dropdown-item" th:href="@{/casas/lista}">Listar Casas</a></li>
+                </ul>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Estancias
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
                     <li><a class="dropdown-item" th:href="@{/estancias/registrar}">Crear Estancia</a></li>
+                    <li><a class="dropdown-item" th:href="@{/comentarios/registrar}">Crear Comentarios</a></li>
+                    <li><a class="dropdown-item" th:href="@{/comentarios/lista}">Ver Comentarios</a></li>
                     <li><hr class="dropdown-divider"/></li>
-
                     <li><a class="dropdown-item" th:href="@{/estancias/lista}">Listar Estancias</a></li>
                 </ul>
             </li>
@@ -54,8 +59,6 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" th:href="@{/reserva/registrar}" >Reservar</a></li>
-                </ul>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="/reserva/lista" >Ver Reservas</a></li>
                 </ul>
             </li>
@@ -69,7 +72,6 @@
                     </li>
                 </ul>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link " sec:authorize ="!isAuthenticated()" th:href="@{/usuario/registrar}" id="navbarDropdown" role="button" aria-expanded="false">
                     Registrate!
