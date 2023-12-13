@@ -38,7 +38,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
 
                         <div class="form-group my-3">
-                            <h3 class="card-title">¡Registra tu casa!</h3>
+                            <h3 class="card-title" th:unless="${casa != null}">¡Registra tu casa!</h3>
                         </div>
                         <div th:if="${casa != null}">
                             <input th:value="${casa.idCasa}" hidden="hidden" name="id" />

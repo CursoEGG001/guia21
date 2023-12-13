@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,14 +39,43 @@ public class CasasControlador {
         return "casas_lista";
     }
 
-    @GetMapping("/registrar")
-    public String registraCasa(Model model) {
-        model.addAttribute("attribute", "value");
+    @GetMapping("/registrar/{id}")
+    public String registraCasa(@PathVariable(required = false) Long id, Model model) {
+
+        if (id != null) {
+            Casas casa = casasServicio.getOne(id);
+            String calle = casa.getCalle();
+            Integer numero = casa.getNumero();
+            String codigoPostal = casa.getCodigoPostal();
+            String ciudad = casa.getCiudad();
+            String pais = casa.getPais();
+            Date fechaDesde = casa.getFechaDesde();
+            Date fechaHasta = casa.getFechaHasta();
+            Integer tiempoMinimo = casa.getTiempoMinimo();
+            Integer tiempoMaximo = casa.getTiempoMaximo();
+            BigDecimal precioHabitacion = casa.getPrecioHabitacion();
+            String tipoVivienda = casa.getTipoVivienda();
+
+            model.addAttribute("casa", casa);
+            model.addAttribute("calle", calle);
+            model.addAttribute("numero", numero);
+            model.addAttribute("codigoPostal", codigoPostal);
+            model.addAttribute("ciudad", ciudad);
+            model.addAttribute("pais", pais);
+            model.addAttribute("fechaDesde", fechaDesde);
+            model.addAttribute("fechaHasta", fechaHasta);
+            model.addAttribute("tiempoMinimo", tiempoMinimo);
+            model.addAttribute("tiempoMaximo", tiempoMaximo);
+            model.addAttribute("precioHabitacion", precioHabitacion);
+            model.addAttribute("tipoVivienda", tipoVivienda);
+
+        }
         return "casas_form";
     }
 
     @PostMapping("/registro")
-    public String registroCasa(@RequestParam String calle,
+    public String registroCasa(@RequestParam(required = false) Long id,
+            @RequestParam String calle,
             @RequestParam Integer numero,
             @RequestParam String ciudad,
             @RequestParam String codigoPostal,
@@ -59,11 +89,19 @@ public class CasasControlador {
             ModelMap model) {
 
         try {
-            casasServicio.crearCasa(calle, numero, ciudad, codigoPostal, pais, fechaDesde, fechaHasta, tiempoMinimo, tiempoMaximo, precioHabitacion, tipoVivienda);
+            if (id != null) {
+                casasServicio.modificarCasa(id, calle, numero, ciudad, codigoPostal, pais, fechaDesde, fechaHasta, tiempoMinimo, tiempoMaximo, precioHabitacion, tipoVivienda);
+            } else {
+                casasServicio.crearCasa(calle, numero, ciudad, codigoPostal, pais, fechaDesde, fechaHasta, tiempoMinimo, tiempoMaximo, precioHabitacion, tipoVivienda);
+            }
+
             model.addAttribute("exito", "Se registró la propiedad en alquiler");
             return "redirect:/usuario/";
         } catch (MiException ex) {
 
+            if (id != null) {
+                model.addAttribute("casa", casasServicio.getOne(id));
+            }
             model.addAttribute("calle", calle);
             model.addAttribute("numero", numero);
             model.addAttribute("ciudad", ciudad);

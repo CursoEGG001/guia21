@@ -14,73 +14,78 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
         <header class="container container-lg">
             <nav th:replace="~{/fragments/navbar :: nav}"></nav>
         </header>
-        <div class="container container-md"> 
+        <main>
+            <div class="container container-md"> 
 
-            <div class="container"> 
-                <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-                    <div class="card-body">
-                        <h5 class="card-title">Exito 👍</h5>
-                        <p class="card-text" th:text="${exito}"></p>
-                    </div>
-                </div>
-                <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError" >
-                    <div class="card-body">
-                        <h5 class="card-title">Error 👎</h5>
-                        <p class="card-text" th:text="${error}"></p>
-                    </div>
-                </div>
-                <div class="container m-5" >
-                    <div class="row justify-content-center">
-                        <h1 class="col">Listado de Casas</h1>
-
-
-                        <table class="z-n1 table table-dark table-striped-columns rounded-2">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Id de Casa</th>
-                                    <th scope="col">Calle</th>
-                                    <th scope="col">Numero</th>
-                                    <th scope="col">Código Postal</th>
-                                    <th scope="col">Fecha Inicial de Disponibilidad</th>
-                                    <th scope="col">Fecha final de Disponibilidad</th>
-                                    <th scope="col">País</th>
-                                    <th scope="col">Tiempo Máximo de alquiler</th>
-                                    <th scope="col">Tiempo Mínimo para alquilar</th>
-                                    <th scope="col">Precio de Alquiler</th>
-                                    <th scope="col">Tipo de Vivienda</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody th:each="casa : ${casas}"> 
-                                <tr th:if="${casa.active}">
-                                    <td scope="row" th:text="${casa.idCasa}"></td>
-                                    <td th:text="${casa.calle}"></td>
-                                    <td th:text="${casa.numero}"></td>
-                                    <td th:text="${casa.codigoPostal}"></td>
-                                    <td th:text="${casa.fechaDesde}"></td>
-                                    <td th:text="${casa.fechaHasta}"></td>
-                                    <td th:text="${casa.pais}"></td>
-                                    <td th:text="${casa.tiempoMaximo}"></td>
-                                    <td th:text="${casa.tiempoMinimo}"></td>
-                                    <td th:text="${casa.precioHabitacion}"></td>
-                                    <td th:text="${casa.tipoVivienda}"></td>
-                                    <td>
-                                        <a th:href= "@{/casa/modificar/__${casa.idCasa}__}"><i class="fas fa-feather-alt">  </i> Modificar </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <section class="py-5 text-center container">
-                        <div class="row py-lg-5">
-                            <div class="col-lg-6 col-md-8 mx-auto">
-                                <a th:href="@{/}" class="btn btn-primary my-2">Volver</a>
-                            </div>
+                <div class="container-fluid"> 
+                    <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+                        <div class="card-body">
+                            <h5 class="card-title">Exito 👍</h5>
+                            <p class="card-text" th:text="${exito}"></p>
                         </div>
-                    </section>
+                    </div>
+                    <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError" >
+                        <div class="card-body">
+                            <h5 class="card-title">Error 👎</h5>
+                            <p class="card-text" th:text="${error}"></p>
+                        </div>
+                    </div>
+                    <div class="container m-5" >
+                        <section class="row justify-content-center">
+                            <div class="col"> 
+                                <h1>Listado de Casas</h1>
+
+
+                                <table class=" z-n1 table table-dark table-striped-columns rounded-2">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Id de Casa</th>
+                                            <th scope="col">Calle</th>
+                                            <th scope="col">Numero</th>
+                                            <th scope="col">Código Postal</th>
+                                            <th scope="col">Fecha Inicial de Disponibilidad</th>
+                                            <th scope="col">Fecha final de Disponibilidad</th>
+                                            <th scope="col">País</th>
+                                            <th scope="col">Tiempo Máximo de alquiler</th>
+                                            <th scope="col">Tiempo Mínimo para alquilar</th>
+                                            <th scope="col">Precio de Alquiler</th>
+                                            <th scope="col">Tipo de Vivienda</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody th:each="casa : ${casas}"> 
+                                        <tr th:if="${casa.active}" class="table-hover">
+                                            <td scope="row" th:text="${casa.idCasa}"></td>
+                                            <td th:text="${casa.calle}"></td>
+                                            <td th:text="${casa.numero}"></td>
+                                            <td th:text="${casa.codigoPostal}"></td>
+                                            <td th:text="${casa.fechaDesde}"></td>
+                                            <td th:text="${casa.fechaHasta}"></td>
+                                            <td th:text="${casa.pais}"></td>
+                                            <td th:text="${casa.tiempoMaximo}"></td>
+                                            <td th:text="${casa.tiempoMinimo}"></td>
+                                            <td th:text="${casa.precioHabitacion}"></td>
+                                            <td th:text="${casa.tipoVivienda}"></td>
+                                            <td>
+                                                <a th:href= "@{/casas/registrar/__${casa.idCasa}__}"><i class="fas fa-feather-alt">  </i> Modificar </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <section class="py-5 text-center container">
+                            <div class="row py-lg-5">
+                                <div class="col-lg-6 col-md-8 mx-auto">
+                                    <a th:href="@{/}" class="btn btn-primary my-2">Volver</a>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
             </div>
-        </div>
-        <footer th:replace="~{/fragments/footer :: footer}"></footer>
+        </main>
+        <footer class="container container-sm" th:replace="~{/fragments/footer :: footer}"></footer>
     </body>
 </html>

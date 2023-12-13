@@ -76,6 +76,7 @@ public class CasasServicio {
             casa.setTiempoMaximo(tiempoMaximo);
             casa.setTiempoMinimo(tiempoMinimo);
             casa.setTipoVivienda(tipoVivienda);
+            casa.setActive(Boolean.TRUE);
 
             if (casaAcambiar.get().getActive()) {
                 casaRepositorio.save(casa);
