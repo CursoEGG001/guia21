@@ -9,6 +9,7 @@ import java.util.List;
 import live.egg.estancia.web.entidades.Clientes;
 import live.egg.estancia.web.entidades.Estancias;
 import live.egg.estancia.web.entidades.Reserva;
+import live.egg.estancia.web.excepciones.MiException;
 import live.egg.estancia.web.servicios.ClientesServicio;
 import live.egg.estancia.web.servicios.EstanciasServicio;
 import live.egg.estancia.web.servicios.ReservaServicio;
@@ -46,8 +47,10 @@ public class ReservaControlador {
 
     @GetMapping("/registrar")
     public String hacerReservas(Model model) {
+        List<Clientes> clientes = clientesServicio.listarClientes();
         List<Estancias> alquiler = estanciasServicio.listarEstancias();
-        model.addAttribute("alquiler", alquiler);
+        model.addAttribute("alquileres", alquiler);
+        model.addAttribute("clientes", clientes);
         return "reserva_form";
     }
 
@@ -59,16 +62,25 @@ public class ReservaControlador {
     }
 
     @PostMapping("/registro")
-    public String guardarReserva(@RequestParam(required = false) Long id, @RequestParam Long idCliente, @RequestParam Long idEstancia, @RequestParam Date fechaLlegada, @RequestParam Date fechaSalida) {
+    public String guardarReserva(@RequestParam(required = false) Long id, @RequestParam Long idCliente, @RequestParam Long idEstancia, @RequestParam Date fechaLlegada, @RequestParam Date fechaSalida, Model model) throws MiException {
 
         List<Estancias> alquiler = estanciasServicio.listarEstancias();
         Clientes cliente = clientesServicio.getOne(idCliente);
-        if (id == null) {
-            alquiler.add(estanciasServicio.getOne(idEstancia));
-            reservaServicio.crearReserva(cliente, alquiler, fechaLlegada, fechaSalida);
-        } else {
-            reservaServicio.modificarReserva(id, cliente, alquiler, fechaLlegada, fechaSalida);
+        try {
+            if (id == null) {
+                alquiler.add(estanciasServicio.getOne(idEstancia));
+                reservaServicio.crearReserva(cliente, alquiler, fechaLlegada, fechaSalida);
+            } else {
+                reservaServicio.modificarReserva(id, cliente, alquiler, fechaLlegada, fechaSalida);
+            }
+        } catch (MiException e) {
+            List<Clientes> clientes = clientesServicio.listarClientes();
+            model.addAttribute("alquiler", alquiler);
+            model.addAttribute("clientes", clientes);
+            model.addAttribute("clienteId", cliente.getIdCliente());
+            model.addAttribute("idEstancia", cliente.getIdCliente());
+            return "reserva_form";
         }
-        return "redirect/";
+        return "redirect:/";
     }
 }

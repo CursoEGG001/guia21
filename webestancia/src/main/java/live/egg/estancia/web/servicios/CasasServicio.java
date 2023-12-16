@@ -37,7 +37,6 @@ public class CasasServicio {
         casa.setNumero(numero);
         casa.setCodigoPostal(codigoPostal);
         casa.setCiudad(ciudad);
-        casa.setCodigoPostal(codigoPostal);
         casa.setFechaDesde(fechaDesde);
         casa.setFechaHasta(fechaHasta);
         casa.setPais(pais);

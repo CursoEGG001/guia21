@@ -10,6 +10,7 @@ import java.util.Optional;
 import live.egg.estancia.web.entidades.Clientes;
 import live.egg.estancia.web.entidades.Estancias;
 import live.egg.estancia.web.entidades.Reserva;
+import live.egg.estancia.web.excepciones.MiException;
 import live.egg.estancia.web.repositorios.ClientesRepository;
 import live.egg.estancia.web.repositorios.EstanciasRepository;
 import live.egg.estancia.web.repositorios.ReservaRepository;
@@ -34,7 +35,9 @@ public class ReservaServicio {
     EstanciasRepository estanciasRepositorio;
 
     @Transactional
-    public void crearReserva(Clientes cliente, List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) {
+    public void crearReserva(Clientes cliente, List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {
+
+        valida(cliente, alquiler, fechaLlegada, fechaSalida);
 
         Reserva reserva = new Reserva();
 
@@ -59,7 +62,9 @@ public class ReservaServicio {
     }
 
     @Transactional
-    public void modificarReserva(Long id, Clientes cliente, List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) {
+    public void modificarReserva(Long id, Clientes cliente, List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {
+
+        valida(cliente, alquiler, fechaLlegada, fechaSalida);
 
         Optional<Reserva> rsvAcambiar = reservaRepositorio.findById(id);
 
@@ -78,6 +83,36 @@ public class ReservaServicio {
                 reservaRepositorio.save(reserva);
             }
 
+        }
+    }
+
+    private void valida(Clientes cliente, List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {
+
+        if (cliente == null) {
+            throw new MiException("Casa inválida");
+        }
+
+        if (alquiler != null) {
+            int cnt = 0;
+            for (Estancias estancias : alquiler) {
+                for (Estancias estancias1 : alquiler) {
+                    if (estancias.equals(estancias1) && cnt == 2) {
+                        throw new MiException("Ya hay una estancia igual");
+                    } else {
+                        cnt++;
+                    }
+                }
+            }
+        }
+
+        if (fechaLlegada.equals(fechaSalida)) {
+            throw new MiException("Fecha inválida");
+        }
+        if (fechaLlegada.after(fechaSalida) || fechaSalida.before(fechaLlegada)) {
+            throw new MiException("Fechas inválidas de llegada y salida");
+        }
+        if (fechaLlegada == null || fechaSalida == null) {
+            throw new MiException("Ingrese una fecha");
         }
     }
 
