@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.annotations.GenericGenerator;
-
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -34,8 +34,10 @@ public class Reserva implements Serializable {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Estancias> alquiler;
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date fechaLlegada;
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date fechaSalida;
     private Boolean active;
 
@@ -50,7 +52,6 @@ public class Reserva implements Serializable {
         this.fechaSalida = fechaSalida;
         this.active = active;
     }
-    
 
     public Clientes getCliente() {
         return cliente;

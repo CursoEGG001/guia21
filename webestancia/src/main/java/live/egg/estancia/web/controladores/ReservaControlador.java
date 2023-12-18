@@ -14,6 +14,7 @@ import live.egg.estancia.web.servicios.ClientesServicio;
 import live.egg.estancia.web.servicios.EstanciasServicio;
 import live.egg.estancia.web.servicios.ReservaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,23 +63,25 @@ public class ReservaControlador {
     }
 
     @PostMapping("/registro")
-    public String guardarReserva(@RequestParam(required = false) Long id, @RequestParam Long idCliente, @RequestParam Long idEstancia, @RequestParam Date fechaLlegada, @RequestParam Date fechaSalida, Model model) throws MiException {
+    public String guardarReserva(@RequestParam(required = false) Long id, @RequestParam Long idCliente, @RequestParam Long idEstancia, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaLlegada, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam Date fechaSalida, Model model) throws MiException {
 
-        List<Estancias> alquiler = estanciasServicio.listarEstancias();
+        List<Estancias> alquileres = estanciasServicio.listarEstancias();
         Clientes cliente = clientesServicio.getOne(idCliente);
         try {
             if (id == null) {
-                alquiler.add(estanciasServicio.getOne(idEstancia));
-                reservaServicio.crearReserva(cliente, alquiler, fechaLlegada, fechaSalida);
+                reservaServicio.crearReserva(cliente, null, fechaLlegada, fechaSalida);
             } else {
-                reservaServicio.modificarReserva(id, cliente, alquiler, fechaLlegada, fechaSalida);
+                alquileres.add(estanciasServicio.getOne(idEstancia));
+                reservaServicio.modificarReserva(id, cliente, alquileres, fechaLlegada, fechaSalida);
             }
         } catch (MiException e) {
             List<Clientes> clientes = clientesServicio.listarClientes();
-            model.addAttribute("alquiler", alquiler);
+
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("alquileres", alquileres);
             model.addAttribute("clientes", clientes);
-            model.addAttribute("clienteId", cliente.getIdCliente());
-            model.addAttribute("idEstancia", cliente.getIdCliente());
+            model.addAttribute("idCliente", idCliente);
+            model.addAttribute("idEstancia", idEstancia);
             return "reserva_form";
         }
         return "redirect:/";
