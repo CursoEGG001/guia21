@@ -21,40 +21,40 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SeguridadWeb {
-    
+
     @Autowired
     public UsuarioServicio usuarioServicio;
-    
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(usuarioServicio)
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
-    
+
     @Bean
     public SecurityFilterChain secCadena(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(authorizeHttpRequestsCustomizer -> authorizeHttpRequestsCustomizer
                     .requestMatchers("/controlpanel/*")
                     .hasAnyRole("ADMIN", "ENCARGADO", "TITULAR")
                     .requestMatchers("/css/*", "/js/*", "/img/*", "/**")
-                    .permitAll())
+                .permitAll())
                 .formLogin(formLoginCustomizer -> formLoginCustomizer
                     .loginPage("/usuario/login")
                     .loginProcessingUrl("/logincheck")
                     .usernameParameter("email")
                     .passwordParameter("password")
                     .defaultSuccessUrl("/usuario/")
-                    .permitAll())
-                .logout(logoutCustomizer -> logoutCustomizer
+                .permitAll())
+                    .logout(logoutCustomizer -> logoutCustomizer
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/usuario/")
-                    .permitAll())
-                .exceptionHandling((noEntra) -> noEntra
+                .permitAll())
+                    .exceptionHandling((noEntra) -> noEntra
                         .accessDeniedPage("/"))
                 .csrf(csrfCustomizer -> csrfCustomizer
-                .disable())
+                    .disable())
                 .build();
-        
+
     }
-    
+
 }

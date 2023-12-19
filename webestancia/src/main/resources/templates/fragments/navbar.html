@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-sm bg-body-tertiary">
     <div class="container-fluid">
         <a href="/" class="navbar-brand d-flex align-items-center">
             <img class="logo" src="/img/Egg.png" alt="Img logo egg"/>
@@ -14,7 +14,7 @@
                         Usuario
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item"  th:href="@{/registrar}">Registrar</a></li>
+                        <li><a class="dropdown-item"  th:href="@{/usuario/registrar}">Registrar</a></li>
                         <li><hr class="dropdown-divider"/></li>
                         <li><a class="dropdown-item" th:href="@{/usuario/lista}">Listar Usuarios</a></li>
                     </ul>
@@ -53,11 +53,11 @@
                         <li><a class="dropdown-item" th:href="@{/estancias/lista}">Listar Estancias</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" sec:authorize ="isAuthenticated()">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Reserva
                     </a>
-                    <ul class="dropdown-menu" sec:authorize ="isAuthenticated()" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" th:href="@{/reserva/registrar}" >Reservar</a></li>
                         <li><a class="dropdown-item" href="/reserva/lista" >Ver Reservas</a></li>
                     </ul>

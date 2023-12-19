@@ -4,6 +4,7 @@
  */
 package live.egg.estancia.web.controladores;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import live.egg.estancia.web.entidades.Clientes;
@@ -65,14 +66,20 @@ public class ReservaControlador {
     @PostMapping("/registro")
     public String guardarReserva(@RequestParam(required = false) Long id, @RequestParam Long idCliente, @RequestParam Long idEstancia, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaLlegada, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam Date fechaSalida, Model model) throws MiException {
 
+        Estancias lugarElegido = estanciasServicio.getOne(idEstancia);
         List<Estancias> alquileres = estanciasServicio.listarEstancias();
         Clientes cliente = clientesServicio.getOne(idCliente);
+        List<Estancias> nueva = new ArrayList<>();
         try {
             if (id == null) {
-                reservaServicio.crearReserva(cliente, null, fechaLlegada, fechaSalida);
+
+                nueva.add(lugarElegido);
+                reservaServicio.crearReserva(cliente, nueva, fechaLlegada, fechaSalida);
             } else {
-                alquileres.add(estanciasServicio.getOne(idEstancia));
-                reservaServicio.modificarReserva(id, cliente, alquileres, fechaLlegada, fechaSalida);
+                Reserva reserva = reservaServicio.GetOne(id);
+                nueva = reserva.getAlquiler();
+                nueva.add(lugarElegido);
+                reservaServicio.modificarReserva(id, cliente, nueva, fechaLlegada, fechaSalida);
             }
         } catch (MiException e) {
             List<Clientes> clientes = clientesServicio.listarClientes();
