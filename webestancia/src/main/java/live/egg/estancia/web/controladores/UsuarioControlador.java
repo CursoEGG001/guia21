@@ -39,6 +39,7 @@ public class UsuarioControlador {
         model.addAttribute("usuarioActivo", logueado);
         return "index.html";
     }
+
     @GetMapping("/lista")
     public String listarUsuarios(HttpSession session, Model model) {
 
@@ -62,6 +63,18 @@ public class UsuarioControlador {
     @GetMapping("/registrar")
     public String registrar() {
         return "registro";
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String registrar(@PathVariable Long id, ModelMap modelo) {
+        try {
+            usuarioServicio.eliminar(id);
+            modelo.addAttribute("exito", "Se eliminó con extio el usuario");
+        } catch (Exception e) {
+            modelo.addAttribute("error", e.getMessage());
+            return "redirect:/usuario/lista" ;
+        }
+        return "redirect:/usuario/lista";
     }
 
     @PostMapping("/registro")

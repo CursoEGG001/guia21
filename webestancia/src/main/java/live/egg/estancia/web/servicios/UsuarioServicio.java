@@ -83,6 +83,10 @@ public class UsuarioServicio implements UserDetailsService {
         return usuarioRepositorio.getReferenceById(id);
     }
 
+    public void eliminar(Long id) {
+        usuarioRepositorio.deleteById(id);
+    }
+
     @Transactional
     public List<Usuario> listarUsuarios() {
 
