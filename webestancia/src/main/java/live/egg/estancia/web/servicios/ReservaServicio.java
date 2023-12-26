@@ -96,10 +96,11 @@ public class ReservaServicio {
             int cnt = 0;
             for (Estancias estancias : alquiler) {
                 for (Estancias estancias1 : alquiler) {
-                    if (estancias.equals(estancias1) && cnt == 2) {
-                        throw new MiException("Ya hay una estancia igual");
-                    } else {
+                    if (estancias.equals(estancias1)) {
                         cnt++;
+                        if (cnt == 2) {
+                            throw new MiException("Ya hay una estancia igual");
+                        }
                     }
                 }
             }
