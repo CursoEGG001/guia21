@@ -172,7 +172,7 @@ public class Clientes implements Serializable {
 
     @Override
     public String toString() {
-        return "live.egg.estancia.web.entidades.Clientes[ idCliente=" + idCliente + " ]";
+        return "entidades.Clientes[ idCliente=" + idCliente + " ]";
     }
     
 }

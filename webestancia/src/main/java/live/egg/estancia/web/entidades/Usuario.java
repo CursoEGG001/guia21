@@ -125,7 +125,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "live.egg.estancia.web.entidades.Usuario[ id=" + id + " ]";
+        return "entidades.Usuario[ id=" + id + " ]";
     }
 
 }

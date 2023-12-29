@@ -68,19 +68,21 @@ public class ReservaControlador {
 
         Estancias lugarElegido = estanciasServicio.getOne(idEstancia);
         List<Estancias> alquileres = estanciasServicio.listarEstancias();
-        Clientes cliente = clientesServicio.getOne(idCliente);
+        Clientes cliente;
         List<Estancias> nueva = new ArrayList<>();
         try {
             if (id == null) {
-
+                cliente = clientesServicio.getOne(idCliente);
                 nueva.add(lugarElegido);
                 reservaServicio.crearReserva(cliente, nueva, fechaLlegada, fechaSalida);
             } else {
+                cliente = clientesServicio.getOne(idCliente);
                 Reserva reserva = reservaServicio.GetOne(id);
                 nueva = reserva.getAlquiler();
                 nueva.add(lugarElegido);
                 reservaServicio.modificarReserva(id, cliente, nueva, fechaLlegada, fechaSalida);
             }
+            model.addAttribute("exito", "Se agregó una reserva.");
         } catch (MiException e) {
             List<Clientes> clientes = clientesServicio.listarClientes();
 

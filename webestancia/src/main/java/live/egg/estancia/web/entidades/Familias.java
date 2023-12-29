@@ -159,7 +159,7 @@ public class Familias implements Serializable {
 
     @Override
     public String toString() {
-        return "live.egg.estancia.web.entidades.Familias[ idFamilia=" + idFamilia + " ]";
+        return "entidades.Familias[ idFamilia=" + idFamilia + " ]";
     }
     
 }

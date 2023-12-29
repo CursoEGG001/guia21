@@ -11,8 +11,6 @@ import live.egg.estancia.web.entidades.Clientes;
 import live.egg.estancia.web.entidades.Estancias;
 import live.egg.estancia.web.entidades.Reserva;
 import live.egg.estancia.web.excepciones.MiException;
-import live.egg.estancia.web.repositorios.ClientesRepository;
-import live.egg.estancia.web.repositorios.EstanciasRepository;
 import live.egg.estancia.web.repositorios.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,12 +25,6 @@ public class ReservaServicio {
 
     @Autowired
     ReservaRepository reservaRepositorio;
-
-    @Autowired
-    ClientesRepository clientesRepositorio;
-
-    @Autowired
-    EstanciasRepository estanciasRepositorio;
 
     @Transactional
     public void crearReserva(Clientes cliente, List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {

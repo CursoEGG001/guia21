@@ -110,7 +110,7 @@ public class Comentarios implements Serializable {
 
     @Override
     public String toString() {
-        return "live.egg.estancia.web.entidades.Comentarios[ idComentario=" + idComentario + " ]";
+        return "entidades.Comentarios[ idComentario=" + idComentario + " ]";
     }
     
 }

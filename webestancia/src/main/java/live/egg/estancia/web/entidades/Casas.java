@@ -240,7 +240,7 @@ public class Casas implements Serializable {
 
     @Override
     public String toString() {
-        return "live.egg.estancia.web.entidades.Casas[ idCasa=" + idCasa + " ]";
+        return "entidades.Casas[ idCasa=" + idCasa + " ]";
     }
 
 }

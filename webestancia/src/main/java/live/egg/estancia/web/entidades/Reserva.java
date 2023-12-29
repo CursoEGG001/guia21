@@ -16,7 +16,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -31,7 +30,6 @@ public class Reserva implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "id")
     private Long id;
-    @Column
     private Clientes cliente;
     @OneToMany(fetch = FetchType.LAZY)
     private List<Estancias> alquiler;
@@ -125,7 +123,7 @@ public class Reserva implements Serializable {
 
     @Override
     public String toString() {
-        return "live.egg.estancia.web.entidades.Reserva[ id=" + id + " ]";
+        return "entidades.Reserva[ id=" + id + " ]";
     }
 
 }

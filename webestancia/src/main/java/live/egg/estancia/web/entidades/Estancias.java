@@ -153,7 +153,7 @@ public class Estancias implements Serializable {
 
     @Override
     public String toString() {
-        return "live.egg.estancia.web.entidades.Estancias[ idEstancia=" + idEstancia + " ]";
+        return "entidades.Estancias[ idEstancia=" + idEstancia + " ]";
     }
 
 }
