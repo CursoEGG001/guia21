@@ -165,11 +165,11 @@ public class Clientes implements Serializable {
     }
 
     public void setActive(Boolean active) {
-        this.active = active; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.active = active; 
     }
 
     public boolean getActive() {
-        return active; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return active; 
     }
 
 }

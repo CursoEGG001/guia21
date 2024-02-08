@@ -6,6 +6,8 @@ package live.egg.estancia.web.entidades;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -14,14 +16,15 @@ import java.util.Objects;
  *
  * @author pc
  */
-
 @Entity
 public class Reserva {
 
     @Id
     private Long id;
     private List<Estancias> alquiler;
+    @Temporal(TemporalType.DATE)
     private Date fechaLlegada;
+    @Temporal(TemporalType.DATE)
     private Date fechaSalida;
     private Boolean active;
 
