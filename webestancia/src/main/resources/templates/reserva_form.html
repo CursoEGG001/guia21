@@ -50,16 +50,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </div>
 
                         <div class="form-group my-3">
-
-                            <select class="form-select" name="idCliente" > 
-                                <option th:each="cliente : ${clientes}"
-                                        th:value="${cliente.idCliente}" 
-                                        th:text="${cliente.nombre +' ('+cliente.email+')'}"
-                                        th:selected="${idCliente == cliente.idCliente}"
-                                        />
-                            </select>
-                        </div>
-                        <div class="form-group my-3">
                             <select class="form-select" name="idEstancia" > 
                                 <option>Elija estancia</option>
                                 <option th:each="alquiler : ${alquileres}"

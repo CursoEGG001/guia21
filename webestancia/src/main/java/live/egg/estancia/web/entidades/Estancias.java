@@ -4,8 +4,6 @@
  */
 package live.egg.estancia.web.entidades;
 
-import java.io.Serializable;
-import java.util.Date;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,79 +13,62 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import org.springframework.format.annotation.DateTimeFormat;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
  * @author pc
  */
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "Estancias.findAll", query = "SELECT e FROM Estancias e"),
-    @NamedQuery(name = "Estancias.findByIdEstancia", query = "SELECT e FROM Estancias e WHERE e.idEstancia = :idEstancia"),
-    @NamedQuery(name = "Estancias.findByNombreHuesped", query = "SELECT e FROM Estancias e WHERE e.nombreHuesped = :nombreHuesped"),
-    @NamedQuery(name = "Estancias.findByFechaDesde", query = "SELECT e FROM Estancias e WHERE e.fechaDesde = :fechaDesde"),
-    @NamedQuery(name = "Estancias.findByFechaHasta", query = "SELECT e FROM Estancias e WHERE e.fechaHasta = :fechaHasta")})
 public class Estancias implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_estancia")
-    private Long idEstancia;
+    @Column(name = "id_estancia", nullable = false)
+    private Integer idEstancia;
     @Basic(optional = false)
-    @Column(name = "nombre_huesped")
+    @Column(name = "nombre_huesped", nullable = false, length = 70)
     private String nombreHuesped;
     @Basic(optional = false)
-    @Column(name = "fecha_desde")
+    @Column(name = "fecha_desde", nullable = false)
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date fechaDesde;
     @Basic(optional = false)
-    @Column(name = "fecha_hasta")
+    @Column(name = "fecha_hasta", nullable = false)
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date fechaHasta;
-    @JoinColumn(name = "id_casa", referencedColumnName = "id_casa")
+    @JoinColumn(name = "id_casa", referencedColumnName = "id_casa", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Casas idCasa;
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Clientes idCliente;
     private Boolean active;
 
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
     public Estancias() {
     }
 
-    public Estancias(Long idEstancia) {
+    public Estancias(Integer idEstancia) {
         this.idEstancia = idEstancia;
     }
 
-    public Estancias(Long idEstancia, String nombreHuesped, Date fechaDesde, Date fechaHasta) {
+    public Estancias(Integer idEstancia, String nombreHuesped, Date fechaDesde, Date fechaHasta) {
         this.idEstancia = idEstancia;
         this.nombreHuesped = nombreHuesped;
         this.fechaDesde = fechaDesde;
         this.fechaHasta = fechaHasta;
     }
 
-    public Long getIdEstancia() {
+    public Integer getIdEstancia() {
         return idEstancia;
     }
 
-    public void setIdEstancia(Long idEstancia) {
+    public void setIdEstancia(Integer idEstancia) {
         this.idEstancia = idEstancia;
     }
 
@@ -153,7 +134,15 @@ public class Estancias implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Estancias[ idEstancia=" + idEstancia + " ]";
+        return "live.egg.estancia.web.entidades.Estancias[ idEstancia=" + idEstancia + " ]";
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public boolean getActive() {
+        return active;
     }
 
 }

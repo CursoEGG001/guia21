@@ -4,8 +4,6 @@
  */
 package live.egg.estancia.web.entidades;
 
-import java.io.Serializable;
-import java.util.List;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,66 +12,46 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import java.io.Serializable;
+import java.util.Collection;
 
 /**
  *
  * @author pc
  */
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "Clientes.findAll", query = "SELECT c FROM Clientes c"),
-    @NamedQuery(name = "Clientes.findByIdCliente", query = "SELECT c FROM Clientes c WHERE c.idCliente = :idCliente"),
-    @NamedQuery(name = "Clientes.findByNombre", query = "SELECT c FROM Clientes c WHERE c.nombre = :nombre"),
-    @NamedQuery(name = "Clientes.findByCalle", query = "SELECT c FROM Clientes c WHERE c.calle = :calle"),
-    @NamedQuery(name = "Clientes.findByNumero", query = "SELECT c FROM Clientes c WHERE c.numero = :numero"),
-    @NamedQuery(name = "Clientes.findByCodigoPostal", query = "SELECT c FROM Clientes c WHERE c.codigoPostal = :codigoPostal"),
-    @NamedQuery(name = "Clientes.findByCiudad", query = "SELECT c FROM Clientes c WHERE c.ciudad = :ciudad"),
-    @NamedQuery(name = "Clientes.findByPais", query = "SELECT c FROM Clientes c WHERE c.pais = :pais"),
-    @NamedQuery(name = "Clientes.findByEmail", query = "SELECT c FROM Clientes c WHERE c.email = :email")})
 public class Clientes implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_cliente")
-    private Long idCliente;
+    @Column(name = "id_cliente", nullable = false)
+    private Integer idCliente;
     @Basic(optional = false)
+    @Column(nullable = false, length = 50)
     private String nombre;
+    @Column(length = 50)
     private String calle;
     @Basic(optional = false)
+    @Column(nullable = false)
     private int numero;
-    @Column(name = "codigo_postal")
+    @Column(name = "codigo_postal", length = 10)
     private String codigoPostal;
     @Basic(optional = false)
+    @Column(nullable = false, length = 50)
     private String ciudad;
     @Basic(optional = false)
+    @Column(nullable = false, length = 50)
     private String pais;
+    @Column(length = 50)
     private String email;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente", fetch = FetchType.LAZY)
-    private List<Estancias> estanciasList;
     private Boolean active;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente", fetch = FetchType.LAZY)
+    private Collection<Estancias> estanciasCollection;
 
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-    
-
-    public Clientes() {
-    }
-
-    public Clientes(Long idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public Clientes(Long idCliente, String nombre, String calle, int numero, String codigoPostal, String ciudad, String pais, String email, Boolean active) {
+    public Clientes(Integer idCliente, String nombre, String calle, int numero, String codigoPostal, String ciudad, String pais, String email, Boolean active, Collection<Estancias> estanciasCollection) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.calle = calle;
@@ -83,14 +61,17 @@ public class Clientes implements Serializable {
         this.pais = pais;
         this.email = email;
         this.active = active;
+        this.estanciasCollection = estanciasCollection;
     }
 
+    public Clientes() {
+    }
 
-    public Long getIdCliente() {
+    public Integer getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(Long idCliente) {
+    public void setIdCliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
 
@@ -150,6 +131,14 @@ public class Clientes implements Serializable {
         this.email = email;
     }
 
+    public Collection<Estancias> getEstanciasCollection() {
+        return estanciasCollection;
+    }
+
+    public void setEstanciasCollection(Collection<Estancias> estanciasCollection) {
+        this.estanciasCollection = estanciasCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -172,7 +161,15 @@ public class Clientes implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Clientes[ idCliente=" + idCliente + " ]";
+        return "live.egg.estancia.web.entidades.Clientes[ idCliente=" + idCliente + " ]";
     }
-    
+
+    public void setActive(Boolean active) {
+        this.active = active; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public boolean getActive() {
+        return active; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

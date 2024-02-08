@@ -56,7 +56,6 @@ public class ClientesServicio {
         Clientes cliente = new Clientes();
 
         if (clienteAcambiar.isPresent()) {
-            cliente.setIdCliente(idCliente);
             cliente.setNombre(nombre);
             cliente.setCalle(calle);
             cliente.setNumero(numero);

@@ -4,14 +4,11 @@
  */
 package live.egg.estancia.web.entidades;
 
-import java.io.Serializable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import java.util.Date;
+import java.util.Objects;
 import live.egg.estancia.web.enumeraciones.Rol;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -19,37 +16,38 @@ import org.hibernate.annotations.GenericGenerator;
  *
  * @author pc
  */
-@Entity
-public class Usuario implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+@Entity
+public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @GenericGenerator(name = "id")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
     private String nombre;
     private String email;
     private String password;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaAlta;
-    private Boolean active;
     private Rol rol;
+    private Boolean active;
 
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
-
-    public Usuario(Long id, String nombre, String email, String password, Date fechaAlta, Boolean active) {
+    public Usuario(Long id, String nombre, String email, String password, Rol rol, Boolean active) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
         this.password = password;
-        this.fechaAlta = fechaAlta;
+        this.rol = rol;
         this.active = active;
+    }
+
+    public Usuario() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -58,9 +56,6 @@ public class Usuario implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public Usuario() {
     }
 
     public String getEmail() {
@@ -79,12 +74,12 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
-    public Date getFechaAlta() {
-        return fechaAlta;
+    public Rol getRol() {
+        return rol;
     }
 
-    public void setFechaAlta(Date fechaAlta) {
-        this.fechaAlta = fechaAlta;
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     public Boolean getActive() {
@@ -95,37 +90,40 @@ public class Usuario implements Serializable {
         this.active = active;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuario)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Usuario other = (Usuario) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        return true;
+        final Usuario other = (Usuario) obj;
+        return Objects.equals(this.id, other.id);
     }
 
     @Override
     public String toString() {
-        return "entidades.Usuario[ id=" + id + " ]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Usuario{");
+        sb.append("id=").append(id);
+        sb.append(", nombre=").append(nombre);
+        sb.append(", email=").append(email);
+        sb.append(", password=").append(password);
+        sb.append(", rol=").append(rol);
+        sb.append(", active=").append(active);
+        sb.append('}');
+        return sb.toString();
     }
 
 }

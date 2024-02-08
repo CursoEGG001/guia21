@@ -4,7 +4,6 @@
  */
 package live.egg.estancia.web.entidades;
 
-import java.io.Serializable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,61 +13,40 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
+import java.io.Serializable;
 
 /**
  *
  * @author pc
  */
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "Comentarios.findAll", query = "SELECT c FROM Comentarios c"),
-    @NamedQuery(name = "Comentarios.findByIdComentario", query = "SELECT c FROM Comentarios c WHERE c.idComentario = :idComentario"),
-    @NamedQuery(name = "Comentarios.findByComentario", query = "SELECT c FROM Comentarios c WHERE c.comentario = :comentario")})
 public class Comentarios implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_comentario")
-    private Long idComentario;
+    @Column(name = "id_comentario", nullable = false)
+    private Integer idComentario;
+    @Column(length = 255)
     private String comentario;
-    @JoinColumn(name = "id_casa", referencedColumnName = "id_casa")
+    @JoinColumn(name = "id_casa", referencedColumnName = "id_casa", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Casas idCasa;
     private Boolean active;
-    
-    
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public Comentarios(Long idComentario, String comentario, Casas idCasa, Boolean active) {
-        this.idComentario = idComentario;
-        this.comentario = comentario;
-        this.idCasa = idCasa;
-        this.active = active;
-    }
 
     public Comentarios() {
     }
 
-    public Comentarios(Long idComentario) {
+    public Comentarios(Integer idComentario) {
         this.idComentario = idComentario;
     }
 
-    public Long getIdComentario() {
+    public Integer getIdComentario() {
         return idComentario;
     }
 
-    public void setIdComentario(Long idComentario) {
+    public void setIdComentario(Integer idComentario) {
         this.idComentario = idComentario;
     }
 
@@ -110,7 +88,15 @@ public class Comentarios implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Comentarios[ idComentario=" + idComentario + " ]";
+        return "live.egg.estancia.web.entidades.Comentarios[ idComentario=" + idComentario + " ]";
+    }
+
+    public void setActive(Boolean active) {
+    this.active=active;    
+    }
+
+    public Boolean getActive() {
+        return active;
     }
     
 }

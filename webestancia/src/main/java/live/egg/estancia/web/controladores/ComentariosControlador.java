@@ -60,6 +60,7 @@ public class ComentariosControlador {
         String comenta = comentario.getComentario();
         Long idCasa = comentario.getIdCasa().getIdCasa(); //Nop, no es error
 
+        modelo.addAttribute("comentario", comentario);
         modelo.addAttribute("casas", casas);
         modelo.addAttribute("comenta", comenta);
         modelo.addAttribute("idCasa", idCasa);

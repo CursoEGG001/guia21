@@ -41,7 +41,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                             <thead>
                                 <tr>
                                     <th scope="col">Id de Reserva</th>
-                                    <th scope="col">Cliente</th>
                                     <th scope="col">Alquiler</th>
                                     <th scope="col">Fecha de Inicio</th>
                                     <th scope="col">Fecha Finalización</th>
@@ -53,7 +52,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                             <tbody th:each="reserva : ${reservas}"> 
                                 <tr th:if="${reserva.active}">
                                     <td scope="row" th:text="${reserva.id}"></td>
-                                    <td th:text="${reserva.cliente.nombre}"></td>
                                     <td th:text="${reserva.alquiler}"></td>
                                     <td th:text="${reserva.fechaLlegada}"></td>
                                     <td th:text="${reserva.fechaSalida}"></td>

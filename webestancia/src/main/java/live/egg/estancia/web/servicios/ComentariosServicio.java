@@ -50,7 +50,7 @@ public class ComentariosServicio {
         valida(comenta, idCasa);
         Optional<Comentarios> cmAcambiar = comentarioRepositorio.findById(idComentario);
 
-        Comentarios cm = new Comentarios();
+        Comentarios cm = cmAcambiar.get();
 
         cm.setComentario(comenta);
         cm.setIdCasa(casaRepositorio.getReferenceById(idCasa));

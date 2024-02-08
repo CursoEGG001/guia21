@@ -7,7 +7,6 @@ package live.egg.estancia.web.servicios;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import live.egg.estancia.web.entidades.Clientes;
 import live.egg.estancia.web.entidades.Estancias;
 import live.egg.estancia.web.entidades.Reserva;
 import live.egg.estancia.web.excepciones.MiException;
@@ -27,13 +26,12 @@ public class ReservaServicio {
     ReservaRepository reservaRepositorio;
 
     @Transactional
-    public void crearReserva(Clientes cliente, List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {
+    public void crearReserva(List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {
 
-        valida(cliente, alquiler, fechaLlegada, fechaSalida);
+        valida(alquiler, fechaLlegada, fechaSalida);
 
         Reserva reserva = new Reserva();
 
-        reserva.setCliente(cliente);
         reserva.setAlquiler(alquiler);
         reserva.setFechaLlegada(fechaLlegada);
         reserva.setFechaSalida(fechaSalida);
@@ -54,9 +52,9 @@ public class ReservaServicio {
     }
 
     @Transactional
-    public void modificarReserva(Long id, Clientes cliente, List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {
+    public void modificarReserva(Long id, List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {
 
-        valida(cliente, alquiler, fechaLlegada, fechaSalida);
+        valida(alquiler, fechaLlegada, fechaSalida);
 
         Optional<Reserva> rsvAcambiar = reservaRepositorio.findById(id);
 
@@ -64,7 +62,6 @@ public class ReservaServicio {
 
         if (rsvAcambiar.isPresent()) {
 
-            reserva.setCliente(cliente);
             reserva.setFechaLlegada(fechaLlegada);
             reserva.setFechaSalida(fechaSalida);
             reserva.setId(id);
@@ -78,11 +75,7 @@ public class ReservaServicio {
         }
     }
 
-    private void valida(Clientes cliente, List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {
-
-        if (cliente == null) {
-            throw new MiException("Casa inválida");
-        }
+    private void valida(List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {
 
         if (alquiler != null) {
             int cnt = 0;

@@ -83,8 +83,10 @@ public class FamiliasControlador {
             }
 
         } catch (Exception e) {
+            Familias familia = familiasServicio.getOne(idFamilia);
             List<Casas> casas = casasServicio.listarCasas();
 
+            modelo.addAttribute("familia", familia);
             modelo.addAttribute("idFamilia", idFamilia);
             modelo.addAttribute("nombre", nombre);
             modelo.addAttribute("edadMinima", edadMinima);

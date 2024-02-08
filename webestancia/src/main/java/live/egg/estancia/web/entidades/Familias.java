@@ -4,7 +4,6 @@
  */
 package live.egg.estancia.web.entidades;
 
-import java.io.Serializable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,56 +13,40 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
+import java.io.Serializable;
 
 /**
  *
  * @author pc
  */
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "Familias.findAll", query = "SELECT f FROM Familias f"),
-    @NamedQuery(name = "Familias.findByIdFamilia", query = "SELECT f FROM Familias f WHERE f.idFamilia = :idFamilia"),
-    @NamedQuery(name = "Familias.findByNombre", query = "SELECT f FROM Familias f WHERE f.nombre = :nombre"),
-    @NamedQuery(name = "Familias.findByEdadMinima", query = "SELECT f FROM Familias f WHERE f.edadMinima = :edadMinima"),
-    @NamedQuery(name = "Familias.findByEdadMaxima", query = "SELECT f FROM Familias f WHERE f.edadMaxima = :edadMaxima"),
-    @NamedQuery(name = "Familias.findByNumHijos", query = "SELECT f FROM Familias f WHERE f.numHijos = :numHijos"),
-    @NamedQuery(name = "Familias.findByEmail", query = "SELECT f FROM Familias f WHERE f.email = :email")})
 public class Familias implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_familia")
+    @Column(name = "id_familia", nullable = false)
     private Integer idFamilia;
     @Basic(optional = false)
+    @Column(nullable = false, length = 50)
     private String nombre;
     @Basic(optional = false)
-    @Column(name = "edad_minima")
+    @Column(name = "edad_minima", nullable = false)
     private int edadMinima;
     @Basic(optional = false)
-    @Column(name = "edad_maxima")
+    @Column(name = "edad_maxima", nullable = false)
     private int edadMaxima;
     @Basic(optional = false)
-    @Column(name = "num_hijos")
+    @Column(name = "num_hijos", nullable = false)
     private int numHijos;
     @Basic(optional = false)
+    @Column(nullable = false, length = 50)
     private String email;
-    @JoinColumn(name = "id_casa_familia", referencedColumnName = "id_casa")
+    @JoinColumn(name = "id_casa_familia", referencedColumnName = "id_casa", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Casas idCasaFamilia;
     private Boolean active;
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-    
 
     public Familias() {
     }
@@ -159,7 +142,15 @@ public class Familias implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Familias[ idFamilia=" + idFamilia + " ]";
+        return "live.egg.estancia.web.entidades.Familias[ idFamilia=" + idFamilia + " ]";
     }
-    
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public boolean getActive() {
+        return active; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

@@ -4,10 +4,6 @@
  */
 package live.egg.estancia.web.entidades;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -16,97 +12,73 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Date;
 
 /**
  *
  * @author pc
  */
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "Casas.findAll", query = "SELECT c FROM Casas c"),
-    @NamedQuery(name = "Casas.findByIdCasa", query = "SELECT c FROM Casas c WHERE c.idCasa = :idCasa"),
-    @NamedQuery(name = "Casas.findByCalle", query = "SELECT c FROM Casas c WHERE c.calle = :calle"),
-    @NamedQuery(name = "Casas.findByNumero", query = "SELECT c FROM Casas c WHERE c.numero = :numero"),
-    @NamedQuery(name = "Casas.findByCodigoPostal", query = "SELECT c FROM Casas c WHERE c.codigoPostal = :codigoPostal"),
-    @NamedQuery(name = "Casas.findByCiudad", query = "SELECT c FROM Casas c WHERE c.ciudad = :ciudad"),
-    @NamedQuery(name = "Casas.findByPais", query = "SELECT c FROM Casas c WHERE c.pais = :pais"),
-    @NamedQuery(name = "Casas.findByFechaDesde", query = "SELECT c FROM Casas c WHERE c.fechaDesde = :fechaDesde"),
-    @NamedQuery(name = "Casas.findByFechaHasta", query = "SELECT c FROM Casas c WHERE c.fechaHasta = :fechaHasta"),
-    @NamedQuery(name = "Casas.findByTiempoMinimo", query = "SELECT c FROM Casas c WHERE c.tiempoMinimo = :tiempoMinimo"),
-    @NamedQuery(name = "Casas.findByTiempoMaximo", query = "SELECT c FROM Casas c WHERE c.tiempoMaximo = :tiempoMaximo"),
-    @NamedQuery(name = "Casas.findByPrecioHabitacion", query = "SELECT c FROM Casas c WHERE c.precioHabitacion = :precioHabitacion"),
-    @NamedQuery(name = "Casas.findByTipoVivienda", query = "SELECT c FROM Casas c WHERE c.tipoVivienda = :tipoVivienda")})
 public class Casas implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_casa")
+    @Column(name = "id_casa", nullable = false)
     private Long idCasa;
+    @Column(length = 50)
     private String calle;
     @Basic(optional = false)
+    @Column(nullable = false)
     private int numero;
-    @Column(name = "codigo_postal")
+    @Column(name = "codigo_postal", length = 10)
     private String codigoPostal;
     @Basic(optional = false)
+    @Column(nullable = false, length = 50)
     private String ciudad;
     @Basic(optional = false)
+    @Column(nullable = false, length = 50)
     private String pais;
     @Basic(optional = false)
-    @Column(name = "fecha_desde")
+    @Column(name = "fecha_desde", nullable = false)
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = ISO.DATE)
     private Date fechaDesde;
     @Basic(optional = false)
-    @Column(name = "fecha_hasta")
+    @Column(name = "fecha_hasta", nullable = false)
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = ISO.DATE)
     private Date fechaHasta;
     @Basic(optional = false)
-    @Column(name = "tiempo_minimo")
+    @Column(name = "tiempo_minimo", nullable = false)
     private int tiempoMinimo;
     @Basic(optional = false)
-    @Column(name = "tiempo_maximo")
+    @Column(name = "tiempo_maximo", nullable = false)
     private int tiempoMaximo;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @Column(name = "precio_habitacion")
+    @Column(name = "precio_habitacion", nullable = false, precision = 15, scale = 2)
     private BigDecimal precioHabitacion;
     @Basic(optional = false)
-    @Column(name = "tipo_vivienda")
+    @Column(name = "tipo_vivienda", nullable = false, length = 30)
     private String tipoVivienda;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCasa", fetch = FetchType.LAZY)
-    private List<Estancias> estanciasList;
+    private Collection<Estancias> estanciasCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCasaFamilia", fetch = FetchType.LAZY)
-    private List<Familias> familiasList;
+    private Collection<Familias> familiasCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCasa", fetch = FetchType.LAZY)
-    private List<Comentarios> comentariosList;
+    private Collection<Comentarios> comentariosCollection;
     private Boolean active;
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
 
     public Casas() {
     }
 
-    public Casas(Long idCasa) {
-        this.idCasa = idCasa;
-    }
-
-    public Casas(Long idCasa, String calle, int numero, String codigoPostal, String ciudad, String pais, Date fechaDesde, Date fechaHasta, int tiempoMinimo, int tiempoMaximo, BigDecimal precioHabitacion, String tipoVivienda, Boolean active) {
+    public Casas(Long idCasa, String calle, int numero, String codigoPostal, String ciudad, String pais, Date fechaDesde, Date fechaHasta, int tiempoMinimo, int tiempoMaximo, BigDecimal precioHabitacion, String tipoVivienda, Collection<Estancias> estanciasCollection, Collection<Familias> familiasCollection, Collection<Comentarios> comentariosCollection, Boolean active) {
         this.idCasa = idCasa;
         this.calle = calle;
         this.numero = numero;
@@ -119,8 +91,13 @@ public class Casas implements Serializable {
         this.tiempoMaximo = tiempoMaximo;
         this.precioHabitacion = precioHabitacion;
         this.tipoVivienda = tipoVivienda;
+        this.estanciasCollection = estanciasCollection;
+        this.familiasCollection = familiasCollection;
+        this.comentariosCollection = comentariosCollection;
         this.active = active;
     }
+
+    
 
     public Long getIdCasa() {
         return idCasa;
@@ -218,6 +195,30 @@ public class Casas implements Serializable {
         this.tipoVivienda = tipoVivienda;
     }
 
+    public Collection<Estancias> getEstanciasCollection() {
+        return estanciasCollection;
+    }
+
+    public void setEstanciasCollection(Collection<Estancias> estanciasCollection) {
+        this.estanciasCollection = estanciasCollection;
+    }
+
+    public Collection<Familias> getFamiliasCollection() {
+        return familiasCollection;
+    }
+
+    public void setFamiliasCollection(Collection<Familias> familiasCollection) {
+        this.familiasCollection = familiasCollection;
+    }
+
+    public Collection<Comentarios> getComentariosCollection() {
+        return comentariosCollection;
+    }
+
+    public void setComentariosCollection(Collection<Comentarios> comentariosCollection) {
+        this.comentariosCollection = comentariosCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -240,7 +241,15 @@ public class Casas implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Casas[ idCasa=" + idCasa + " ]";
+        return "live.egg.estancia.web.entidades.Casas[ idCasa=" + idCasa + " ]";
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public boolean getActive() {
+        return active;
     }
 
 }

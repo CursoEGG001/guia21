@@ -61,6 +61,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <option th:each="casa : ${casas}"
                                     th:value="${casa.idCasa}"
                                     th:text="${casa.calle +' '+ casa.numero}"
+                                    th:selected="${casa.idCasa==idCasa}"
                                     />
                         </select>
 
