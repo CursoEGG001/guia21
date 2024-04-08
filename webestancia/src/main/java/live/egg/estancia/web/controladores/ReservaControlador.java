@@ -40,7 +40,7 @@ public class ReservaControlador {
 
     @GetMapping("/lista")
     public String listarReservas(Model model) {
-        Collection<Reserva> reservas =  reservaServicio.listarReserva();
+        Collection<Reserva> reservas = reservaServicio.listarReserva();
 
         model.addAttribute("reservas", reservas);
         return "reserva_lista";
@@ -55,7 +55,12 @@ public class ReservaControlador {
 
     @GetMapping("/registrar/{id}")
     public String hacerReserva(@PathVariable Long id, Model model) {
+        List<Casas> alquileres = casasServicio.listarCasas();
         Reserva reserva = reservaServicio.GetOne(id);
+        Casas lugarElegido = reserva.getAlquiler();
+
+        model.addAttribute("lugarElegido", lugarElegido);
+        model.addAttribute("alquileres", alquileres);
         model.addAttribute("reserva", reserva);
         return "reserva_form";
     }

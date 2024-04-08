@@ -28,7 +28,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                         </div>
                     </div>
                 </div>
-                <div th:unless="${usuario != null}" class="btn btn-primary align-center">
+                <div th:unless="${usuario == null}" class="btn btn-primary align-center">
 
                     <input type="submit" th:onclick="'window.location.href =\''+ |@{/usuario/login}|+'\''" value="Ingresar"/>
 
