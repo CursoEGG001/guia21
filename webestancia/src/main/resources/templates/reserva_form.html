@@ -50,23 +50,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </div>
 
                         <div class="form-group my-3">
-                            <select class="form-select" name="idEstancia" > 
-                                <option>Elija estancia</option>
+                            <select class="form-select" name="idCasa" > 
+                                <option>Elija lugar de estancia</option>
                                 <option th:each="alquiler : ${alquileres}"
-                                        th:value="${alquiler.idEstancia}" 
-                                        th:text="${alquiler.idCasa.calle + ' ' + alquiler.idCasa.numero + '('+ alquiler.idCasa.ciudad+')'}"
-                                        th:selected="${idEstancia == alquiler.idEstancia}"
+                                        th:value="${alquiler.idCasa}" 
+                                        th:text="${alquiler.calle + ' ' + alquiler.numero + '('+ alquiler.ciudad +')'}"
+                                        th:selected="${lugarElegido != null ? (lugarElegido.idCasa == alquiler.idCasa) : 'false'}"
                                         />
                             </select>
                         </div>
 
-                        <div class="form-group my-3">
-                            <input type="date" class="form-control" name="fechaLlegada" placeholder="FECHA DE LLEGADA" th:value="${fechaLlegada}" />
-                        </div>
+                        <fieldset>
+                            <legend>¿En qué fecha se presentará?</legend>
+                            <div class="form-group my-3">
+                                <input type="date" class="form-control" name="fechaLlegada" placeholder="FECHA DE LLEGADA" th:value="${fechaLlegada}" />
+                            </div>
 
-                        <div class="form-group my-3">
-                            <input type="date" class="form-control" name="fechaSalida" placeholder="FECHA DE FINALIZACION" th:value="${fechaSalida}" />
-                        </div>
+                            <div class="form-group my-3">
+                                <input type="date" class="form-control" name="fechaSalida" placeholder="FECHA DE FINALIZACION" th:value="${fechaSalida}" />
+                            </div>
+                        </fieldset>
 
                         <button type="submit" class="btn btn-primary mt-3 botones">Registrar</button>
                     </form>

@@ -4,12 +4,17 @@
  */
 package live.egg.estancia.web.entidades;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -20,8 +25,11 @@ import java.util.Objects;
 public class Reserva {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private List<Estancias> alquiler;
+    @ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "alquiler", referencedColumnName = "id_casa")
+    private Casas alquiler;
     @Temporal(TemporalType.DATE)
     private Date fechaLlegada;
     @Temporal(TemporalType.DATE)
@@ -31,7 +39,7 @@ public class Reserva {
     public Reserva() {
     }
 
-    public Reserva(Long id, List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida, Boolean active) {
+    public Reserva(Long id, Casas alquiler, Date fechaLlegada, Date fechaSalida, Boolean active) {
         this.id = id;
         this.alquiler = alquiler;
         this.fechaLlegada = fechaLlegada;
@@ -66,7 +74,11 @@ public class Reserva {
         return "Reserva{" + "id=" + id + '}';
     }
 
-    public void setAlquiler(List<Estancias> alquiler) {
+    public Casas getAlquiler() {
+        return alquiler;
+    }
+
+    public void setAlquiler(Casas alquiler) {
         this.alquiler = alquiler;
     }
 
@@ -90,8 +102,16 @@ public class Reserva {
         return active;
     }
 
-    public List<Estancias> getAlquiler() {
-        return alquiler;
+    public Long getId() {
+        return id;
+    }
+
+    public Date getFechaLlegada() {
+        return fechaLlegada;
+    }
+
+    public Date getFechaSalida() {
+        return fechaSalida;
     }
 
 }

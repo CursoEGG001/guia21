@@ -4,12 +4,13 @@
  */
 package live.egg.estancia.web.controladores;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import live.egg.estancia.web.entidades.Estancias;
+import live.egg.estancia.web.entidades.Casas;
 import live.egg.estancia.web.entidades.Reserva;
 import live.egg.estancia.web.excepciones.MiException;
+import live.egg.estancia.web.servicios.CasasServicio;
 import live.egg.estancia.web.servicios.EstanciasServicio;
 import live.egg.estancia.web.servicios.ReservaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,18 +35,20 @@ public class ReservaControlador {
     ReservaServicio reservaServicio;
     @Autowired
     EstanciasServicio estanciasServicio;
+    @Autowired
+    CasasServicio casasServicio;
 
     @GetMapping("/lista")
     public String listarReservas(Model model) {
-        List<Reserva> reserva = reservaServicio.listarReserva();
+        Collection<Reserva> reservas =  reservaServicio.listarReserva();
 
-        model.addAttribute("reserva", reserva);
+        model.addAttribute("reservas", reservas);
         return "reserva_lista";
     }
 
     @GetMapping("/registrar")
-    public String hacerReservas(Model model) {
-        List<Estancias> alquiler = estanciasServicio.listarEstancias();
+    public String hacerReservacion(Model model) {
+        List<Casas> alquiler = casasServicio.listarCasas();
         model.addAttribute("alquileres", alquiler);
         return "reserva_form";
     }
@@ -60,31 +63,27 @@ public class ReservaControlador {
     @PostMapping("/registro")
     public String guardarReserva(
             @RequestParam(required = false) Long id,
-            @RequestParam Long idEstancia,
+            @RequestParam Long idCasa,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaLlegada,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaSalida,
             Model model
     ) throws MiException {
 
-        Estancias lugarElegido = estanciasServicio.getOne(idEstancia);
-        List<Estancias> alquileres = estanciasServicio.listarEstancias();
-        List<Estancias> nueva = new ArrayList<>();
+        Casas lugarElegido = casasServicio.getOne(idCasa);
+        List<Casas> alquileres = casasServicio.listarCasas();
+
         try {
             if (id == null) {
-                nueva.add(lugarElegido);
-                reservaServicio.crearReserva(nueva, fechaLlegada, fechaSalida);
+                reservaServicio.crearReserva(lugarElegido, fechaLlegada, fechaSalida);
             } else {
-                Reserva reserva = reservaServicio.GetOne(id);
-                nueva = reserva.getAlquiler();
-                nueva.add(lugarElegido);
-                reservaServicio.modificarReserva(id, nueva, fechaLlegada, fechaSalida);
+                reservaServicio.modificarReserva(id, lugarElegido, fechaLlegada, fechaSalida);
             }
             model.addAttribute("exito", "Se agregó una reserva.");
         } catch (MiException e) {
 
             model.addAttribute("error", e.getMessage());
             model.addAttribute("alquileres", alquileres);
-            model.addAttribute("idEstancia", idEstancia);
+            model.addAttribute("lugarElegido", lugarElegido);
             return "reserva_form";
         }
         return "redirect:/";

@@ -69,6 +69,8 @@ public class Casas implements Serializable {
     private String tipoVivienda;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCasa", fetch = FetchType.LAZY)
     private Collection<Estancias> estanciasCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "alquiler", fetch = FetchType.LAZY)
+    private Collection<Reserva> reservaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCasaFamilia", fetch = FetchType.LAZY)
     private Collection<Familias> familiasCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCasa", fetch = FetchType.LAZY)
@@ -78,7 +80,7 @@ public class Casas implements Serializable {
     public Casas() {
     }
 
-    public Casas(Long idCasa, String calle, int numero, String codigoPostal, String ciudad, String pais, Date fechaDesde, Date fechaHasta, int tiempoMinimo, int tiempoMaximo, BigDecimal precioHabitacion, String tipoVivienda, Collection<Estancias> estanciasCollection, Collection<Familias> familiasCollection, Collection<Comentarios> comentariosCollection, Boolean active) {
+    public Casas(Long idCasa, String calle, int numero, String codigoPostal, String ciudad, String pais, Date fechaDesde, Date fechaHasta, int tiempoMinimo, int tiempoMaximo, BigDecimal precioHabitacion, String tipoVivienda, Collection<Estancias> estanciasCollection, Collection<Reserva> reservaCollection, Collection<Familias> familiasCollection, Collection<Comentarios> comentariosCollection, Boolean active) {
         this.idCasa = idCasa;
         this.calle = calle;
         this.numero = numero;
@@ -92,12 +94,11 @@ public class Casas implements Serializable {
         this.precioHabitacion = precioHabitacion;
         this.tipoVivienda = tipoVivienda;
         this.estanciasCollection = estanciasCollection;
+        this.reservaCollection = reservaCollection;
         this.familiasCollection = familiasCollection;
         this.comentariosCollection = comentariosCollection;
         this.active = active;
     }
-
-    
 
     public Long getIdCasa() {
         return idCasa;
@@ -217,6 +218,14 @@ public class Casas implements Serializable {
 
     public void setComentariosCollection(Collection<Comentarios> comentariosCollection) {
         this.comentariosCollection = comentariosCollection;
+    }
+
+    public Collection<Reserva> getReservaCollection() {
+        return reservaCollection;
+    }
+
+    public void setReservaCollection(Collection<Reserva> reservaCollection) {
+        this.reservaCollection = reservaCollection;
     }
 
     @Override

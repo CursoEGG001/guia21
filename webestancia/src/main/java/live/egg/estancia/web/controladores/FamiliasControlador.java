@@ -42,7 +42,16 @@ public class FamiliasControlador {
     @GetMapping("/registrar")
     public String asentarFamilia(ModelMap model) {
 
+        Familias familia = new Familias();
+
         List<Casas> casas = casasServicio.listarCasas();
+        model.addAttribute("familia", familia);
+        model.addAttribute("idFamilia", familia.getIdFamilia());
+        model.addAttribute("nombre", familia.getNombre());
+        model.addAttribute("edadMinima", familia.getEdadMinima());
+        model.addAttribute("edadMaxima", familia.getEdadMaxima());
+        model.addAttribute("numHijos", familia.getNumHijos());
+        model.addAttribute("email", familia.getEmail());
         model.addAttribute("casas", casas);
 
         return "familias_form";

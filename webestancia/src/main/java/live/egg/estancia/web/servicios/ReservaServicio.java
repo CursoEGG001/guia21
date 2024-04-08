@@ -4,15 +4,17 @@
  */
 package live.egg.estancia.web.servicios;
 
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
-import live.egg.estancia.web.entidades.Estancias;
+import live.egg.estancia.web.entidades.Casas;
 import live.egg.estancia.web.entidades.Reserva;
 import live.egg.estancia.web.excepciones.MiException;
 import live.egg.estancia.web.repositorios.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -26,7 +28,7 @@ public class ReservaServicio {
     ReservaRepository reservaRepositorio;
 
     @Transactional
-    public void crearReserva(List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {
+    public void crearReserva(Casas alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {
 
         valida(alquiler, fechaLlegada, fechaSalida);
 
@@ -42,7 +44,7 @@ public class ReservaServicio {
     }
 
     @Transactional
-    public List<Reserva> listarReserva() {
+    public Collection<Reserva> listarReserva() {
         return reservaRepositorio.findAll();
     }
 
@@ -52,7 +54,7 @@ public class ReservaServicio {
     }
 
     @Transactional
-    public void modificarReserva(Long id, List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {
+    public void modificarReserva(Long id, Casas alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {
 
         valida(alquiler, fechaLlegada, fechaSalida);
 
@@ -75,22 +77,11 @@ public class ReservaServicio {
         }
     }
 
-    private void valida(List<Estancias> alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {
+    private void valida(Casas alquiler, Date fechaLlegada, Date fechaSalida) throws MiException {
 
-        if (alquiler != null) {
-            int cnt = 0;
-            for (Estancias estancias : alquiler) {
-                for (Estancias estancias1 : alquiler) {
-                    if (estancias.equals(estancias1)) {
-                        cnt++;
-                        if (cnt == 2) {
-                            throw new MiException("Ya hay una estancia igual");
-                        }
-                    }
-                }
-            }
+        if (alquiler == null) {
+            throw new MiException("No debe estar vacio");
         }
-
         if (fechaLlegada.equals(fechaSalida)) {
             throw new MiException("Fecha inválida");
         }
