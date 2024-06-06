@@ -75,12 +75,17 @@ public class UsuarioServicio implements UserDetailsService {
 
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
 
-            usuario.setRol(Rol.USER);
+            usuario.setRol(usuarioRepositorio.getReferenceById(idUsuario).getRol());
 
             String idImagen = null;
 
             if (usuario.getImagen() != null) {
                 idImagen = usuario.getImagen().getId();
+            } else {
+
+                Imagen imagen = imagenServicio.guardar(archivo);
+
+                usuario.setImagen(imagen);
             }
 
             Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
@@ -93,7 +98,7 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     public Usuario getOne(String id) {
-        return usuarioRepositorio.getOne(id);
+        return usuarioRepositorio.getReferenceById(id);
     }
 
     @Transactional
