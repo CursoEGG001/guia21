@@ -38,7 +38,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                             <th scope="col">Id de Usuarios</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">E-mail</th>
-                            <th scope="col" colspan=2>Acciones</th>
+                            <th scope="col" colspan=3>Acciones</th>
                         </tr>
                     </thead>
                     <tbody th:each="usuario : ${usuarios}"> 
@@ -46,6 +46,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                             <td scope="row" th:text="${usuario.id}"></td>
                             <td th:text="${usuario.nombre}"></td>
                             <td th:text="${usuario.email}"></td>
+                            <td >
+                                <p th:text="${usuario.rol}"></p><a th:href= "@{/usuario/cambiar-rol/__${usuario.id}__}"><i class="bi bi-fingerprint"></i> Cambiar Rol </a>
+                            </td>
                             <td >
                                 <a th:href= "@{/usuario/perfil/__${usuario.id}__}"><i class="bi bi-pencil-square"></i> Modificar </a>
                             </td>

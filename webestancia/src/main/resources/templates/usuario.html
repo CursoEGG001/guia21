@@ -43,7 +43,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <div class="container container-sm">   
             <form class="row justify-content-evenly" sec:authorize="hasAnyRole('USUARIO','ADMIN')">
                 <fieldset disabled="disabled">
-                    <legend th:text="('Id: ')+${usuario.id}">Disabled fieldset example</legend>
+                    <legend th:text="('Id: ')+${usuario.id}">Ejemplo de conjunto de campos deshabilitados</legend>
                     <div class="mb-3">
                         <label for="disabledTextInput" class="form-label">Nombre</label>
                         <input type="text" id="disabledTextInput" class="form-control" th:placeholder="${usuario.nombre}" />
@@ -52,7 +52,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <label for="disabledTextInput" class="form-label">Correo Electrónico</label>
                         <input type="text" id="disabledTextInput" class="form-control" th:placeholder="${usuario.email}" />
                     </div>
-
+                    <div class="mb-3">
+                        <select class="form-select" aria-label="Selector deshabilitado de ejemplo" disabled="disabled">
+                            <option selected="selected" th:text="${usuario.rol}">Open this select menu</option>
+                        </select>
+                    </div>
                 </fieldset>
             </form>
 

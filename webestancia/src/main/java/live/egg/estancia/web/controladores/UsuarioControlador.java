@@ -72,7 +72,19 @@ public class UsuarioControlador {
             modelo.addAttribute("exito", "Se eliminó con extio el usuario");
         } catch (Exception e) {
             modelo.addAttribute("error", e.getMessage());
-            return "redirect:/usuario/lista" ;
+            return "redirect:/usuario/lista";
+        }
+        return "redirect:/usuario/lista";
+    }
+
+    @GetMapping("/cambiar-rol/{id}")
+    public String cambiarRol(@PathVariable Long id, ModelMap modelo) {
+        try {
+            usuarioServicio.cambiarRol(id);
+            modelo.addAttribute("exito", "Se cambió con extio el usuario");
+        } catch (Exception e) {
+            modelo.addAttribute("error", e.getMessage());
+            return "redirect:/usuario/lista";
         }
         return "redirect:/usuario/lista";
     }
