@@ -41,7 +41,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         </header>
 
         <div class="container container-sm">   
-            <form class="row justify-content-evenly" sec:authorize="hasAnyRole('USUARIO','ADMIN')">
+            <form class="row justify-content-evenly" sec:authorize="hasAnyRole('ADMIN','ENCARGADO','TITULAR','USUARIO')">
                 <fieldset disabled="disabled">
                     <legend th:text="('Id: ')+${usuario.id}">Ejemplo de conjunto de campos deshabilitados</legend>
                     <div class="mb-3">

@@ -46,7 +46,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                             <td scope="row" th:text="${usuario.id}"></td>
                             <td th:text="${usuario.nombre}"></td>
                             <td th:text="${usuario.email}"></td>
-                            <td >
+                            <td sec:authorize="hasRole('ADMIN')">
                                 <p th:text="${usuario.rol}"></p><a th:href= "@{/usuario/cambiar-rol/__${usuario.id}__}"><i class="bi bi-fingerprint"></i> Cambiar Rol </a>
                             </td>
                             <td >

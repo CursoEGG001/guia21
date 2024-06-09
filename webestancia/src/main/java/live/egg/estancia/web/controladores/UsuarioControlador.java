@@ -10,6 +10,7 @@ import live.egg.estancia.web.entidades.Usuario;
 import live.egg.estancia.web.excepciones.MiException;
 import live.egg.estancia.web.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -50,6 +51,7 @@ public class UsuarioControlador {
         return "usuarios_list";
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','ENCARGADO','TITULAR','USUARIO')")
     @GetMapping("/perfil/{id}")
     public String perfilUsuario(@PathVariable Long id, HttpSession session, Model model) {
 
@@ -65,6 +67,7 @@ public class UsuarioControlador {
         return "registro";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/eliminar/{id}")
     public String registrar(@PathVariable Long id, ModelMap modelo) {
         try {
@@ -77,6 +80,7 @@ public class UsuarioControlador {
         return "redirect:/usuario/lista";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/cambiar-rol/{id}")
     public String cambiarRol(@PathVariable Long id, ModelMap modelo) {
         try {
