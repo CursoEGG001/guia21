@@ -72,7 +72,7 @@ public class UsuarioControlador {
     public String registrar(@PathVariable Long id, ModelMap modelo) {
         try {
             usuarioServicio.eliminar(id);
-            modelo.addAttribute("exito", "Se eliminó con extio el usuario");
+            modelo.addAttribute("exito", "Se eliminó con éxito el usuario");
         } catch (Exception e) {
             modelo.addAttribute("error", e.getMessage());
             return "redirect:/usuario/lista";
@@ -85,7 +85,7 @@ public class UsuarioControlador {
     public String cambiarRol(@PathVariable Long id, ModelMap modelo) {
         try {
             usuarioServicio.cambiarRol(id);
-            modelo.addAttribute("exito", "Se cambió con extio el usuario");
+            modelo.addAttribute("exito", "Se cambió con éxito el rol de usuario");
         } catch (Exception e) {
             modelo.addAttribute("error", e.getMessage());
             return "redirect:/usuario/lista";
