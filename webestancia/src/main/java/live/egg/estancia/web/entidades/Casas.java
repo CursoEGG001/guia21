@@ -80,7 +80,25 @@ public class Casas implements Serializable {
     public Casas() {
     }
 
-    public Casas(Long idCasa, String calle, int numero, String codigoPostal, String ciudad, String pais, Date fechaDesde, Date fechaHasta, int tiempoMinimo, int tiempoMaximo, BigDecimal precioHabitacion, String tipoVivienda, Collection<Estancias> estanciasCollection, Collection<Reserva> reservaCollection, Collection<Familias> familiasCollection, Collection<Comentarios> comentariosCollection, Boolean active) {
+    public Casas(
+            Long idCasa,
+            String calle,
+            int numero,
+            String codigoPostal,
+            String ciudad,
+            String pais,
+            Date fechaDesde,
+            Date fechaHasta,
+            int tiempoMinimo,
+            int tiempoMaximo,
+            BigDecimal precioHabitacion,
+            String tipoVivienda,
+            Collection<Estancias> estanciasCollection,
+            Collection<Reserva> reservaCollection,
+            Collection<Familias> familiasCollection,
+            Collection<Comentarios> comentariosCollection,
+            Boolean active
+    ) {
         this.idCasa = idCasa;
         this.calle = calle;
         this.numero = numero;
