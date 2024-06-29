@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +29,7 @@ public class EditorialControlador {
     @Autowired
     private EditorialServicio editorialServicio;
 
-    @GetMapping("/registrar") //localhost:8080/autor/registrar
+    @GetMapping("/registrar") //localhost:8080/editorial/registrar
     public String registrar() {
         return "editorial_form.html";
     }
@@ -44,28 +43,36 @@ public class EditorialControlador {
         return "editorial_lista.html";
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/modificar/{id}")
     public String modificaEditorial(@PathVariable String id, ModelMap modelo) {
         modelo.put("editorial", editorialServicio.getOne(id));
 
         return ("editorial_modificar.html");
     }
 
-    @PatchMapping("{id}")
+    @PostMapping("/modificar/{id}")
     public String modificarEditorial(@PathVariable String id, String nombre, ModelMap modelo) {
         try {
             editorialServicio.modificarEditorial(id, nombre);
-            return "redirect:../lista";
+
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             return "editorial_modificar.html";
         }
+        return "redirect:/editorial/lista";
     }
 
-    @DeleteMapping("{id}")
+    @GetMapping("/eliminar/{id}")
     public String eliminaEditorial(@PathVariable String id, ModelMap modelo) throws MiException {
-        editorialServicio.eliminar(id);
-        return "editorial_modificar.html";
+        try {
+            editorialServicio.eliminar(id);
+        } catch (MiException ex) {
+
+            modelo.put("error", ex.getMessage());
+            return "redirect:/editorial/lista";
+
+        }
+        return "redirect:/editorial/lista";
     }
 
     @PostMapping("/registro")
