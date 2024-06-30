@@ -56,6 +56,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             Perfil
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" th:href="@{/perfil}" >Editar Perfil</a></li>
+                            <li><hr class="dropdown-divider"/></li>
                             <li><a class="dropdown-item" href="/logout" >Cerrar Sesión</a></li>
                         </ul>
                     </li>
@@ -71,7 +73,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div th:if="${session.usuariosession != null}" class="container contenedorLibros">
                     <img th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" width="240" height="192" alt="Imagen actual"/>
                     <p class="tituloLibros"  th:text=" 'Hola de vuelta '+ ${session.usuariosession.nombre} "></p>
-                    <a class="btn btn-xl mt-2 boton">Ver Listado</a>
+                    <a class="btn btn-xl mt-2 boton" th:href="@{/libro/lista}">Ver Listado</a>
                 </div>
                 <div class="bg-circle-1 bg-circle"></div>
                 <div class="bg-circle-2 bg-circle"></div>
