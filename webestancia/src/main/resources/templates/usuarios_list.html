@@ -50,7 +50,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                                 <p th:text="${usuario.rol}"></p><a th:href= "@{/usuario/cambiar-rol/__${usuario.id}__}"><i class="bi bi-fingerprint"></i> Cambiar Rol </a>
                             </td>
                             <td >
-                                <a th:href= "@{/usuario/perfil/__${usuario.id}__}"><i class="bi bi-pencil-square"></i> Modificar </a>
+                                <a th:href="@{/usuario/perfil/__${usuario.id}__}" 
+                                   th:if="${#authentication.name == usuario.email or #authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                                    <i class="bi bi-pencil-square"></i> Modificar
+                                </a>
                             </td>
                             <td sec:authorize="hasRole('ADMIN')">
                                 <a th:href= "@{/usuario/eliminar/__${usuario.id}__}"><i class="bi bi-trash3-fill"></i> Eliminar</a>
