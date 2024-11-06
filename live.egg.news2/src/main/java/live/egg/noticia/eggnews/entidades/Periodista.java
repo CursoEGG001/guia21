@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.hibernate.annotations.GenericGenerator;
@@ -17,6 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
  * @author pc
  */
 @Entity
+@PrimaryKeyJoinColumn(referencedColumnName = "id")
 public class Periodista extends Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
