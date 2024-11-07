@@ -39,7 +39,7 @@ public class NoticiasControlador {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         modelo.put("usuario", logueado);
         if (logueado != null) {
-            modelo.put("exito", "Existe el usuario");
+            modelo.put("exito", "Disfruta tu info del día");
         }
         return "index.html";
 

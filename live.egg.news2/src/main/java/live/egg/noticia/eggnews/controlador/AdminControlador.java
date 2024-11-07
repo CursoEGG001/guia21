@@ -59,7 +59,7 @@ public class AdminControlador {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/modificarRol/{id}")
-    public String cambiarRol(@PathVariable String id) {
+    public String cambiarRol(@PathVariable String id) throws MiException {
         usuarioServicio.cambiarRol(id);
 
         return "redirect:/admin/usuarios";
@@ -81,7 +81,6 @@ public class AdminControlador {
     public String guardarModificarUsuario(@PathVariable String id, @RequestParam String nombre, @RequestParam String email, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
         try {
             usuarioServicio.actualizar(id, nombre, email, password, password2);
-            modelo.put("exito", "Se actualizó el usuario");
 
         } catch (MiException ex) {
             modelo.addAttribute("nombre", nombre);

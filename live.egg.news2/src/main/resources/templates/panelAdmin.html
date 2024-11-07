@@ -45,7 +45,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                         <option th:each="periodista : ${periodistas}"
                                 th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')') or (#authentication.name == periodista.email)}"
                                 th:value="${periodista.id}"
-                                th:text="${periodista.nombre} + '-' + ${#authentication.name == periodista.email}">
+                                th:text="${#authentication.name == periodista.email} ? ${periodista.nombre} : ${periodista.nombre +' ('+ periodista.rol + ') '}"}>
                         </option>
                     </select>
                 </div>

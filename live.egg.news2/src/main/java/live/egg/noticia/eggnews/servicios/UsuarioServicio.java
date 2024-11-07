@@ -74,7 +74,7 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void cambiarRol(String id) {
+    public void cambiarRol(String id) throws MiException {
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
 
         if (respuesta.isPresent()) {
@@ -89,6 +89,7 @@ public class UsuarioServicio implements UserDetailsService {
                 case ADMIN ->
                     usuario.setRol(Rol.USUARIO);
                 default -> {
+                    throw new MiException("Usuario Anómalo");
                 }
             }
         }
