@@ -85,7 +85,6 @@ public class PortalControlador {
         return "inicio.html";
     }
 
-    @PreAuthorize("isAuthenticated()")
     @GetMapping("/perfil")
     public String perfil(ModelMap modelo, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
