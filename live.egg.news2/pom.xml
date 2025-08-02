@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.1</version>
+        <version>3.5.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>live.egg.noticia</groupId>
@@ -15,7 +15,7 @@
     <name>eggnews2</name>
     <description>Practico de noticias</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>22</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -64,13 +64,13 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>6.4.2</version>
+            <version>6.5.2</version>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>6.4.2</version>
+            <version>6.5.2</version>
             <type>jar</type>
         </dependency>
     </dependencies>
